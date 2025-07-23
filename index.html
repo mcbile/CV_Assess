@@ -1,50 +1,77 @@
 <!--
-====================================================================================
-AI INSTRUCTION: Your Role and Core Directive
-====================================================================================
+INTERNAL AI ASSESSOR INSTRUCTIONS:
 
-You are the world's best recruiter and assessor of candidates for professional 
-suitability in the iGaming / Online Casino industry for remote work.
+ROLE:
+You are the world’s leading virtual recruiter and assessor for iGaming/online-casino roles in a fully remote environment. Your mission is to auto-populate this CV evaluation template based on the candidate’s resume (and optional JD), without altering any HTML, CSS, or JavaScript.
 
-Your Key Principles:
-1.  DOMAIN > EVERYTHING: Relevant iGaming experience (payments, bonuses, compliance, 
-    game testing, anti-fraud) is the highest priority.
-2.  ENGINEERING MINDSET: You value candidates who not only complete tasks but also 
-    build systems, automate processes, and demonstrate architectural ownership.
-3.  BUSINESS CONTEXT: You assess how well a candidate understands business goals
-    (player retention, 24/7 stability, time-to-market).
-4.  DEPTH OVER BREADTH: Deep knowledge in one key technology is more important
-    than a superficial acquaintance with ten.
-5.  SOFT SKILLS ARE CRITICAL: In a remote work environment, autonomy,
-    proactiveness, and excellent communication skills are crucial.
-    
-Your task is to analyze the candidate's CV provided by the user
-and fill out this template, following all the instructions in the comments below.
-====================================================================================
+KEY PRINCIPLES:
+1. DOMAIN > EVERYTHING
+   • Prioritize direct iGaming experience: payments, bonus engines, compliance (KYC/AML), anti-fraud, game testing, etc.
+2. ENGINEERING MINDSET
+   • Look for system design, automation, CI/CD pipelines, architectural ownership.
+3. BUSINESS CONTEXT
+   • Emphasize understanding of player retention metrics (LTV, churn), time-to-market, uptime and stability.
+4. DEPTH OVER BREADTH
+   • Reward deep expertise in one core technology over shallow knowledge of many.
+5. SOFT SKILLS
+   • Assess autonomy, proactivity, written and verbal communication in a remote setting.
+
+INPUTS:
+• This HTML template (do NOT modify markup, styles, or scripts).
+• Candidate’s CV (text/PDF).
+• Optional: Job description or vacancy profile for the role and grade.
+
+PROCESS:
+1. Parse CV into sections: iGaming domain experience, technical skills, business case work, soft skills.
+2. If JD provided, align required competencies and responsibilities to the candidate’s experience.
+3. Determine dynamic weights based on role seniority/grade and JD emphasis:
+   • Domain Knowledge: 25–40%
+   • Technical Depth: 20–35%
+   • Business Understanding: 15–30%
+   • Soft Skills: 15–30%
+   (Adjust within these ranges according to JD priorities.)
+4. Define additional weight constraints:
+   • Total weight of each section must be between 10% and 40% of the sum of all section weights.
+   • Weight of each competency within a section must be between 10% and 45% of that section’s total weight.
+5. For each evaluation criterion:
+   a. Score candidate on a 1–5 scale.
+   b. Calculate weighted score: score × weight.
+   c. Insert numeric score, weight %, and weighted total into template fields.
+   d. Add a concise comment with concrete evidence (project name, metrics, achievement).
+6. In the designated Markdown section for the role and grade, generate a tailored test assignment and an evaluation form each time. Format both in Markdown as per the template:
+   - **Test Assignment**: describe task objectives, deliverables, and success criteria.
+   - **Evaluation Form**: list criteria mirroring template competencies with scoring guidelines.
+7. Summarize overall fit (1–2 sentences) in the “Summary” field.
+
+OVERLAP AVOIDANCE:
+• Ensure test assignment generation and its evaluation form are separate from standard scoring steps.
+• Do not duplicate instructions already covered in steps 1–5; maintain clarity by isolating Markdown generation in step 6.
+
+FINAL CHECK:
+• Ensure all fields are populated clearly and logically.
+• Verify template layout, styling, and scripts are untouched.
+• Deliver filled template for operator review.
 -->
 
 <!--
-* Hiring CoPilot Report
-* Version: 3.3.5
-* Last Updated: 23.07.2025
-*
-* CHANGELOG:
-*   - v3.3.5 (23.07.2025): Content & Structure Refinement.
-*     - RESTRUCTURED: The "Risk / Verification" section to a "Risk -> Question" format for better context.
-*     - UI TWEAK: Replaced the final emoji with an SVG icon for consistency.
-*     - UI TWEAK: Unified header styles in the "Test Assignment" section.
-*     - CONTENT: Refined the summary verdict to be a single, objective paragraph.
-*   - v3.3.4 (23.07.2025): Print & UI Consistency Fixes.
+* Hiring CoPilot Report Template
+* Version: 1.1.0
+* Created: 23.07.2025
+* 
+* CHANGELOG (v1.1.0):
+* - CHG: The "Send via Email" button has been renamed to "Generate Email" and now displays an informational alert with instructions for the user.
+* - TPL: All specific candidate and project data has been replaced with generic placeholders to create a reusable template.
+* - MAINT: The logic for generating the email subject and body has been updated to work with placeholder data.
 -->
 <!DOCTYPE html>
 <html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiring CoPilot - Zaur Aliyev</title>
+    <title>Hiring CoPilot - [Candidate Name]</title>
     <style>
         /* ============================================= */
-        /* ============== VERSION 3.3.5 ================ */
+        /* ============== VERSION 1.1.0 ================ */
         /* ============================================= */
 
         /* ============================================= */
@@ -243,7 +270,7 @@ and fill out this template, following all the instructions in the comments below
                     <div id="actions-dropdown" class="dropdown-menu">
                         <div class="action-item"><button id="save-report-pdf" class="btn-action">Сохранить в PDF</button></div>
                         <div class="action-item"><div class="email-group"><input type="email" id="recipient-email" class="email-input" placeholder="Email получателя"></div></div>
-                        <div class="action-item"><button id="send-report-email" class="btn-action">Отправить по Email</button></div>
+                        <div class="action-item"><button id="send-report-email" class="btn-action">Сформировать Email</button></div>
                     </div>
                 </div>
             </div>
@@ -257,17 +284,17 @@ and fill out this template, following all the instructions in the comments below
         <div class="container">
             <!-- Report Header -->
             <div class="report-header">
-                <!-- Для реального кандидата установите один data-gender: "male", "female", или "neutral" -->
-                <h2 data-gender="male">
+                <!-- Установите один data-gender: "male", "female", или "neutral" для отображения нужной иконки -->
+                <h2 data-gender="neutral">
                     <span class="gender-icon-wrapper">
                         <svg class="gender-icon icon-male" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                         <svg class="gender-icon icon-female" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 22 16"></polyline><polyline points="22 11 17 16"></polyline></svg>
                         <svg class="gender-icon icon-neutral" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>
                     </span>
-                    <span>Кандидат: Zaur Aliyev</span>
+                    <span>Кандидат: [Имя Фамилия]</span>
                 </h2>
-                <!-- Для смены профиля весов измените текст на "Junior Frontend Developer" -->
-                <h3 id="position-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>Позиция: COO / Head of Business</span></h3>
+                <!-- Измените текст ниже для выбора соответствующего профиля весов из JSON-конфигурации -->
+                <h3 id="position-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>Позиция: [Название Позиции]</span></h3>
             </div>
             
             <!-- Summary Card -->
@@ -275,28 +302,27 @@ and fill out this template, following all the instructions in the comments below
                 <h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg> Overview</span></h2>
                 <div class="summary-grid">
                     <div class="summary-block verdict-block">
-                        <p>Кандидат демонстрирует **сильный** уровень соответствия, обладая редким сочетанием технического бэкграунда, операционного управления (COO) и глубокой доменной экспертизы в iGaming. Опыт управления affiliate- и PPC-командами, а также партнерства с казино-брендами прямо соответствует ключевым потребностям индустрии. Главный вопрос — его текущая мотивация и карьерный фокус, учитывая разнообразие ролей. Необходимо убедиться, что цели компании совпадают с его амбициями.</p>
+                        <p>Кандидат демонстрирует **[сильный/средний/слабый]** уровень соответствия. Основные сильные стороны лежат в области [область 1] и [область 2]. Главный вопрос для проверки — [ключевой вопрос или риск]. Необходимо убедиться, что цели компании совпадают с амбициями кандидата.</p>
                     </div>
-                    <div class="summary-block pros-block"><h4>Ключевые плюсы</h4><ul><li>**Управлял командой из 25+ специалистов** в инжиниринге, маркетинге и IT.</li><li>**Руководил управлением 200+ сайтов** и PPC-кампаниями для максимизации ROI.</li><li>**Выстраивал стратегические партнерства** с казино-брендами для масштабирования операций.</li><li>**Обладает опытом управления технической командой** (8-12 разработчиков), что обеспечивает глубокое понимание продуктовой разработки.</li></ul></div>
-                    <div class="summary-block risks-block"><h4>Основные риски</h4><ul><li><strong>(КРИТИЧЕСКИЙ) Неясность карьерного фокуса:</strong> Широкий спектр ролей (от инженера до COO) требует уточнения, в какой именно области кандидат хочет развиваться дальше.</li><li>**Сверхкороткий срок на текущем месте работы** (начало в сентябре 2024) требует прояснения обстоятельств.</li><li>**Актуальность технических навыков:** Глубокий технический опыт относится к роли, завершившейся в 2023 году.</li></ul></div>
+                    <div class="summary-block pros-block"><h4>Ключевые плюсы</h4><ul><li>Пример сильной стороны кандидата, основанный на опыте.</li><li>Еще одна сильная сторона, подтвержденная цифрами или фактами.</li><li>Ключевое достижение, релевантное для позиции.</li><li>Навык или качество, важное для команды.</li></ul></div>
+                    <div class="summary-block risks-block"><h4>Основные риски</h4><ul><li><strong>(КРИТИЧЕСКИЙ)</strong> Пример критического риска, который может блокировать найм.</li><li>Пример риска средней степени, требующий верификации.</li><li>Пример менее значительного риска или "красного флага".</li></ul></div>
                 </div>
             </div>
             
-            <!-- Skills & Formal Cards (Block Layout) -->
-            <div id="card-hard-skills" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2l-4.5 4.5L14 11l-1.5 1.5L8 8l-4.5 4.5L8 17l1.5 1.5L5 14l4.5-4.5L14 14l-1.5 1.5L8 11l4.5 4.5L17 11l-1.5-1.5L11 14l4.5-4.5L20 14"></path></svg> Hard Skills</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Управление iGaming проектами (COO)<span class="item-weight"></span></span><p class="competency-justification">"Successfully managed a team of 25 professionals across engineering, content, marketing, and IT..."</p></li><li class="score-good"><span class="competency-name">Affiliate & PPC-маркетинг<span class="item-weight"></span></span><p class="competency-justification">"Overseeing the management of 200+ websites and 8 Google Ads accounts... Managed partner relationships, overseeing CPA/RS agreements..."</p></li><li class="score-good"><span class="competency-name">Аналитика и Принятие Решений<span class="item-weight"></span></span><p class="competency-justification">"Created detailed performance reports and actionable insights using tools like Google Analytics and custom dashboards..."</p></li></ul></div>
-            <div id="card-tech-stack" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Software</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-average"><span class="competency-name">React / Next.js Ecosystem<span class="item-weight"></span></span><p class="competency-justification">Указан в прошлой роли Senior Software Engineer (до 2023); актуальность требует проверки.</p></li><li class="score-good"><span class="competency-name">Инструменты управления (Jira)<span class="item-weight"></span></span><p class="competency-justification">Указан как основной инструмент в роли инженера, что релевантно для любой управляющей позиции.</p></li><li class="score-good"><span class="competency-name">Платежные системы (Stripe)<span class="item-weight"></span></span><p class="competency-justification">Опыт со Stripe критически важен для любой iGaming-компании.</p></li></ul></div>
-            <div id="card-soft-skills" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Soft Skills</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Проактивность и Владение<span class="item-weight"></span></span><p class="competency-justification">Карьерный рост от инженера до COO и обучение в Y Combinator демонстрируют высокий уровень проактивности.</p></li><li class="score-good"><span class="competency-name">Коммуникация (письменная)<span class="item-weight"></span></span><p class="competency-justification">Резюме структурировано профессионально, формулировки четкие.</p></li><li class="score-good"><span class="competency-name">Самостоятельность / Удаленная работа<span class="item-weight"></span></span><p class="competency-justification">Опыт работы в 'remote' формате явно указан в роли Senior Software Engineer.</p></li><li class="score-bad"><span class="competency-name">Навыки работы с ИИ<span class="item-weight"></span></span><p class="competency-justification">Нет упоминаний об использовании современных инструментов для повышения производительности.</p></li></ul></div>
-            <div id="card-formal" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Add. Info</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Уровень английского<span class="item-weight"></span></span><p class="competency-justification">Указан 'Full Professional Proficiency'.</p></li><li class="score-good"><span class="competency-name">Профильное образование<span class="item-weight"></span></span><p class="competency-justification">Синергия образований: Computer Science (BBA), Marketing (MBA) и Entrepreneurship (Y Combinator).</p></li><li class="score-average"><span class="competency-name">Курсы и сертификаты<span class="item-weight"></span></span><p class="competency-justification">Y Combinator является сильным маркером, но формальные отраслевые сертификаты не указаны.</p></li></ul></div>
-            <div id="card-grade" class="card grade-card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Pre-Grade</span></h2><div class="grade-value">COO / Head of Department</div><p><strong>Обоснование:</strong> Опыт управления большими командами (25+ человек), P&L (подразумевается из 'Managing financial parts'), и стратегического развития бизнеса ставят его на уровень руководителя департамента или COO.</p></div>
+            <!-- Skills & Formal Cards -->
+            <div id="card-hard-skills" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2l-4.5 4.5L14 11l-1.5 1.5L8 8l-4.5 4.5L8 17l1.5 1.5L5 14l4.5-4.5L14 14l-1.5 1.5L8 11l4.5 4.5L17 11l-1.5-1.5L11 14l4.5-4.5L20 14"></path></svg> Hard Skills</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Ключевая компетенция 1<span class="item-weight"></span></span><p class="competency-justification">"Цитата из резюме или пример, подтверждающий высокий уровень владения."</p></li><li class="score-average"><span class="competency-name">Ключевая компетенция 2<span class="item-weight"></span></span><p class="competency-justification">Обоснование, почему навык оценен как средний (например, устаревший опыт).</p></li><li class="score-bad"><span class="competency-name">Ключевая компетенция 3<span class="item-weight"></span></span><p class="competency-justification">Обоснование низкой оценки (например, отсутствие упоминаний в резюме).</p></li></ul></div>
+            <div id="card-tech-stack" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Software</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Технология / Инструмент 1<span class="item-weight"></span></span><p class="competency-justification">Пример, демонстрирующий экспертное владение.</p></li><li class="score-average"><span class="competency-name">Технология / Инструмент 2<span class="item-weight"></span></span><p class="competency-justification">Упомянут в опыте, но требует проверки на актуальность.</p></li><li class="score-good"><span class="competency-name">Технология / Инструмент 3<span class="item-weight"></span></span><p class="competency-justification">Критически важный инструмент для данной роли.</p></li></ul></div>
+            <div id="card-soft-skills" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Soft Skills</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Гибкий навык 1 (например, Проактивность)<span class="item-weight"></span></span><p class="competency-justification">Пример из карьерного пути, демонстрирующий это качество.</p></li><li class="score-good"><span class="competency-name">Гибкий навык 2 (например, Коммуникация)<span class="item-weight"></span></span><p class="competency-justification">Оценка на основе качества резюме или сопроводительного письма.</p></li><li class="score-average"><span class="competency-name">Гибкий навык 3 (например, Работа в команде)<span class="item-weight"></span></span><p class="competency-justification">Требует дополнительной проверки на собеседовании.</p></li><li class="score-bad"><span class="competency-name">Гибкий навык 4 (например, Работа с ИИ)<span class="item-weight"></span></span><p class="competency-justification">Нет упоминаний об использовании современных инструментов.</p></li></ul></div>
+            <div id="card-formal" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Add. Info</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Уровень иностранного языка<span class="item-weight"></span></span><p class="competency-justification">Указан уровень '[Proficiency Level]'.</p></li><li class="score-good"><span class="competency-name">Профильное образование<span class="item-weight"></span></span><p class="competency-justification">Наличие степени в [Название области].</p></li><li class="score-average"><span class="competency-name">Курсы и сертификаты<span class="item-weight"></span></span><p class="competency-justification">Есть сертификаты, но их релевантность требует уточнения.</p></li></ul></div>
+            <div id="card-grade" class="card grade-card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Pre-Grade</span></h2><div class="grade-value">[Оценочный уровень]</div><p><strong>Обоснование:</strong> Опыт кандидата соответствует требованиям для уровня [Junior/Middle/Senior/Lead/Head].</p></div>
             
             <!-- Doubts Section -->
             <div id="card-doubts" class="card">
                 <h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Risk / Verification</span></h2>
                 <ul class="question-list">
-                    <li class="question-critical"><div class="risk-title"><strong>РИСК:</strong> Неясность карьерного фокуса</div><p class="verification-question">Ваш карьерный трек очень интересен: от инженера до COO. Какая из этих ролей вам ближе всего сейчас и в чем вы видите свое развитие в ближайшие 2-3 года?</p></li>
-                    <li class="question-regular"><div class="risk-title">РИСК: Поверхностное понимание операционного управления</div><p class="verification-question">Расскажите о самом сложном решении, которое вы приняли в роли COO. Как вы управляли финансовыми показателями и P&L?</p></li>
-                    <li class="question-regular"><div class="risk-title">РИСК: Частая смена работы</div><p class="verification-question">Ваша текущая роль Head of Business Development началась в сентябре 2024, в то время как предыдущая закончилась в том же месяце. Можете рассказать об этом переходе?</p></li>
-                    <li class="question-regular"><div class="risk-title">РИСК: Актуальность технических навыков</div><p class="verification-question">Насколько вы сейчас погружены в технологии? Если бы вам пришлось сегодня проектировать систему, на каком стеке вы бы это делали?</p></li>
+                    <li class="question-critical"><div class="risk-title"><strong>РИСК:</strong> [Формулировка критического риска]</div><p class="verification-question">Пример вопроса для проверки критического риска.</p></li>
+                    <li class="question-regular"><div class="risk-title">РИСК: [Формулировка обычного риска]</div><p class="verification-question">Пример вопроса для проверки обычного риска.</p></li>
+                    <li class="question-regular"><div class="risk-title">РИСК: [Формулировка обычного риска]</div><p class="verification-question">Еще один пример вопроса для верификации.</p></li>
                 </ul>
             </div>
             
@@ -321,17 +347,17 @@ and fill out this template, following all the instructions in the comments below
                     <div id="assessment-block-scenarios" class="assessment-block">
                         <h3>Variations</h3>
                         <ul class="scenario-list">
-                            <li class="scenario scenario-success"><p><strong>Сценарий 1: Успешная верификация.</strong> Кандидат четко артикулирует свои карьерные цели, они совпадают с целями компании. Он убедительно рассказывает о своих достижениях в роли COO, подтверждая экспертизу.<br><strong>Решение:</strong> Готовить оффер на позицию COO / Head of Department.</p></li>
-                            <li class="scenario scenario-partial"><p><strong>Сценарий 2: Частичное подтверждение.</strong> Кандидат показывает сильные стороны в маркетинге и биздеве, но опыт операционного управления оказывается менее глубоким. Его цели больше смещены в сторону маркетинга.<br><strong>Решение:</strong> Рассмотреть на роль Head of Marketing / Affiliate, если такая позиция открыта.</p></li>
-                            <li class="scenario scenario-danger"><p><strong>Сценарий 3: Подтверждение несоответствий.</strong> Выясняется, что кандидат не имел прямого контроля над P&L, а его роль COO была скорее номинальной. Карьерные цели не определены.<br><strong>Решение:</strong> Отклонить кандидатуру из-за несоответствия заявленного опыта реальному.</p></li>
+                            <li class="scenario scenario-success"><p><strong>Сценарий 1: Успешная верификация.</strong> [Описание позитивного исхода интервью].<br><strong>Решение:</strong> Готовить оффер на позицию [Название Позиции].</p></li>
+                            <li class="scenario scenario-partial"><p><strong>Сценарий 2: Частичное подтверждение.</strong> [Описание промежуточного исхода].<br><strong>Решение:</strong> Рассмотреть на альтернативную роль [Название альтернативной позиции] или провести дополнительный этап.</p></li>
+                            <li class="scenario scenario-danger"><p><strong>Сценарий 3: Подтверждение несоответствий.</strong> [Описание негативного исхода].<br><strong>Решение:</strong> Отклонить кандидатуру.</p></li>
                         </ul>
                     </div>
                     <div id="assessment-block-recommendation" class="assessment-block">
                         <h3>Plan / Script</h3>
                         <ul class="plan-list">
-                            <li class="plan-step"><strong>Этап 1: Мотивация и Цели (15 мин).</strong> Начать с вопросов из блока "Risk / Verification" для определения карьерного фокуса кандидата. Это ключевой этап для понимания его соответствия.</li>
-                            <li class="plan-step"><strong>Этап 2: Операционный Опыт (25 мин).</strong> Глубоко погрузиться в его опыт как COO. Вопросы о бюджетировании, управлении командой в 25 человек, KPI, репортинге и принятии стратегических решений.</li>
-                            <li class="plan-step"><strong>Этап 3: Доменная Экспертиза (15 мин).</strong> Обсудить тренды в Tier 1 GEOs, его видение развития affiliate-маркетинга и опыт работы с казино-брендами.</li>
+                            <li class="plan-step"><strong>Этап 1: [Тема для обсуждения 1] (15 мин).</strong> Задать вопросы из блока "Risk / Verification".</li>
+                            <li class="plan-step"><strong>Этап 2: [Тема для обсуждения 2] (25 мин).</strong> Глубоко погрузиться в опыт по [ключевой компетенции].</li>
+                            <li class="plan-step"><strong>Этап 3: [Тема для обсуждения 3] (15 мин).</strong> Обсудить [доменные или технические вопросы].</li>
                             <li class="plan-step"><strong>Этап 4: Q&A (5 мин).</strong> Ответы на вопросы кандидата.</li>
                         </ul>
                     </div>
@@ -344,31 +370,31 @@ and fill out this template, following all the instructions in the comments below
                 <div class="task-block-wrapper">
                     <div class="task-block">
                         <div class="task-header">
-                           <h3><span>Тестовое задание</span></h3>
+                           <h3><span>Пример тестового задания</span></h3>
                            <button class="action-button" id="download-task-md-btn" title="Сохранить задание в .md"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
                         </div>
-                        <pre><code id="test-assignment-md">## Кейс-стади: Стратегия выхода на новый рынок (Go-To-Market)
+                        <pre><code id="test-assignment-md">## Кейс-стади: [Название задачи]
 
 **Контекст:**
-Наша компания запускает новый онлайн-казино бренд, ориентированный на конкурентный Tier-1 рынок (например, Канада или Германия). Бюджет на первые 6 месяцев ограничен. Продукт технически готов, но требует операционной и маркетинговой стратегии для запуска.
+[Описание общей ситуации и проблемы, которую нужно решить. Например, запуск нового продукта, оптимизация процесса и т.д.]
 
-### Требования к ответу (презентация на 10-15 минут):
-1.  **Стратегические столпы:** Сформулируйте ключевое УТП (Уникальное Торговое Предложение) бренда, определите целевую аудиторию и основные каналы привлечения (Affiliate, PPC, SEO и т.д.).
-2.  **Бюджетирование:** Предложите высокоуровневое распределение бюджета на первые 6 месяцев между маркетингом, операционными расходами и командой.
-3.  **Структура команды:** Опишите минимально необходимую команду для запуска и поддержки проекта на первом этапе.
-4.  **KPI для успеха:** Определите 3-5 ключевых показателей эффективности, по которым вы будете оценивать успех запуска через 6 месяцев.
+### Требования к ответу (формат и время):
+1.  **Пункт 1:** [Описание первого требования к решению].
+2.  **Пункт 2:** [Описание второго требования к решению].
+3.  **Пункт 3:** [Описание третьего требования к решению].
+4.  **Пункт 4:** [Описание критериев успеха или ключевых метрик].
 </code></pre>
                     </div>
                     <div class="task-block">
                          <div class="task-header">
-                            <h3><span>Форма оценки ТЗ</span></h3>
+                            <h3><span>Пример формы оценки</span></h3>
                             <button class="action-button" id="download-evaluation-md-btn" title="Сохранить форму оценки в .md"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
                         </div>
                         <pre><code id="evaluation-form-md">| Критерий                  | Оценка (1-5) | Комментарии                                |
 |---------------------------|:------------:|--------------------------------------------|
-| **Стратегическое видение** |              | Глубина понимания рынка, УТП, ЦА.          |
-| **Финансовая грамотность**|              | Реалистичность бюджета, понимание юнит-экономики.|
-| **Операционное планирование**|           | Адекватность структуры команды, реалистичность сроков. |
+| **Критерий оценки 1**     |              | Глубина анализа, структурированность.      |
+| **Критерий оценки 2**     |              | Реалистичность предложений, бизнес-логика. |
+| **Критерий оценки 3**     |              | Учет рисков и ограничений.                 |
 | **Фокус на KPI**          |              | Выбор релевантных метрик, data-driven подход.|
 </code></pre>
                     </div>
@@ -382,7 +408,7 @@ and fill out this template, following all the instructions in the comments below
     <!-- ============================================= -->
     <footer>
         <p>Generated by MAE OMA-II / HRCV</p>
-        <p class="copyright">© <span id="copyright-year"></span> McBile AI-Engine</p>
+        <p class="copyright">© <span id="copyright-year"></span> [Your Company Name]</p>
     </footer>
 
     <!-- ============================================= -->
@@ -395,11 +421,11 @@ and fill out this template, following all the instructions in the comments below
     <!-- ============================================= -->
     <script id="weighting-profiles-data" type="application/json">
     {
-        "COO / Head of Business": {
+        "Пример Профиля 1": {
             "sections": { "hard-skills": 35, "tech-stack": 10, "soft-skills": 45, "formal": 10 },
             "items": { "hard-skills": [50, 30, 20], "tech-stack": [20, 40, 40], "soft-skills": [50, 25, 15, 10], "formal": [30, 50, 20] }
         },
-        "Junior Frontend Developer": {
+        "Пример Профиля 2": {
             "sections": { "hard-skills": 25, "tech-stack": 45, "soft-skills": 20, "formal": 10 },
             "items": { "hard-skills": [30, 40, 30], "tech-stack": [50, 30, 20], "soft-skills": [40, 30, 20, 10], "formal": [20, 40, 40] }
         },
@@ -415,7 +441,7 @@ and fill out this template, following all the instructions in the comments below
     <!-- ============================================= -->
     <script>
         /* ============================================= */
-        /* ============== VERSION 4.0.0 ================ */
+        /* ============== VERSION 1.1.0 ================ */
         /* ============================================= */
         (() => {
             // ========== MODULE: CONFIGURATION ==========
@@ -485,7 +511,7 @@ and fill out this template, following all the instructions in the comments below
             };
 
             const setWeights = () => {
-                const positionText = DOM.positionTitleEl.querySelector('span').textContent.trim();
+                const positionText = DOM.positionTitleEl.querySelector('span').textContent.replace('Позиция: ', '').trim();
                 const profile = weightingProfiles[positionText] || weightingProfiles.Default;
                 for (const [sectionId, sectionWeight] of Object.entries(profile.sections)) {
                     const sectionEl = D.getElementById(`card-${sectionId}`);
@@ -519,7 +545,7 @@ and fill out this template, following all the instructions in the comments below
                 let totalPotentialScore = 0;
                 let totalCategoryWeight = 0;
 
-                const positionText = DOM.positionTitleEl.querySelector('span').textContent.trim();
+                const positionText = DOM.positionTitleEl.querySelector('span').textContent.replace('Позиция: ', '').trim();
                 const profile = weightingProfiles[positionText] || weightingProfiles.Default;
 
                 for (const sectionId of Object.keys(profile.sections)) {
@@ -560,7 +586,7 @@ and fill out this template, following all the instructions in the comments below
                     const originalAverage = currentAverage;
                     currentAverage *= 0.75;
                     const integrityImpact = originalAverage - currentAverage;
-                    pointsToVerify.unshift({ name: "Карьерный фокус и цели", impact: integrityImpact });
+                    pointsToVerify.unshift({ name: "Критический риск для верификации", impact: integrityImpact });
                 }
 
                 return { currentAverage, potentialAverage, pointsToVerify };
@@ -599,22 +625,27 @@ and fill out this template, following all the instructions in the comments below
                 DOM.savePdfBtn.addEventListener('click', () => window.print());
                 DOM.sendEmailBtn.addEventListener('click', () => {
                     const recipient = DOM.emailInput.value; if (!recipient) { alert('Пожалуйста, введите email получателя.'); return; }
-                    const subject = encodeURIComponent(`Отчет по кандидату: Zaur Aliyev на позицию COO / Head of Business`);
+                    
+                    alert('Будет открыт ваш почтовый клиент. Пожалуйста, предварительно сохраните отчет в PDF (Действия -> Сохранить в PDF) и прикрепите файл к письму вручную.');
+
+                    const candidateName = D.querySelector('.report-header h2 span:last-child').textContent.replace('Кандидат: ', '').trim();
+                    const positionName = D.querySelector('#position-title span').textContent.replace('Позиция: ', '').trim();
+                    const subject = encodeURIComponent(`Отчет по кандидату: ${candidateName} на позицию ${positionName}`);
                     const summary = D.querySelector('#assessment-block-recommendation').innerText.trim();
-                    const comments = D.querySelector('.summary-block.verdict-block p:last-child').innerText.trim();
-                    let bodyText = `Здравствуйте,\n\nВо вложении находится полный отчет по кандидату.\n\nКандидат: Zaur Aliyev\nПозиция: COO / Head of Business\n\n${summary}\n\n`;
-                    if (comments) bodyText += `Доп. комментарии:\n"${comments}"\n\n`;
+                    const comments = D.querySelector('.summary-block.verdict-block p').innerText.trim();
+                    let bodyText = `Здравствуйте,\n\nВо вложении находится полный отчет по кандидату.\n\nКандидат: ${candidateName}\nПозиция: ${positionName}\n\nКлючевые рекомендации:\n${summary}\n\n`;
+                    if (comments) bodyText += `Общий вердикт:\n"${comments}"\n\n`;
                     bodyText += 'С уважением,\nHiring CoPilot.';
                     window.location.href = `mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
                 });
 
                 D.getElementById('download-task-md-btn').addEventListener('click', () => {
                    const mdContent = D.getElementById('test-assignment-md').textContent;
-                   downloadMarkdown(mdContent, 'Test-Assignment.md');
+                   downloadMarkdown(mdContent, 'Test-Assignment-Template.md');
                 });
                 D.getElementById('download-evaluation-md-btn').addEventListener('click', () => {
                    const mdContent = D.getElementById('evaluation-form-md').textContent;
-                   downloadMarkdown(mdContent, 'Evaluation-Form.md');
+                   downloadMarkdown(mdContent, 'Evaluation-Form-Template.md');
                 });
 
                 D.addEventListener('click', (e) => { if (!DOM.sectionSelectorDropdown.contains(e.target) && !DOM.sectionSelectorBtn.contains(e.target)) { DOM.sectionSelectorDropdown.classList.remove('is-open'); DOM.sectionSelectorBtn.setAttribute('aria-expanded', 'false'); } if (!DOM.actionsDropdown.contains(e.target) && !DOM.actionsBtn.contains(e.target)) { DOM.actionsDropdown.classList.remove('is-open'); DOM.actionsBtn.setAttribute('aria-expanded', 'false'); } });
