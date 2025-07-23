@@ -128,7 +128,7 @@ and fill out this template, following all the instructions in the comments below
         .action-button:hover { color: var(--color-primary); border-color: currentColor; }
         .category-weight { font-size: 0.8em; font-weight: 500; padding: 4px 8px; border-radius: 6px; background-color: var(--color-bg); border: 1px solid var(--color-border); }
         .task-header { font-size: 1.1em; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--color-border); margin-bottom: 15px; }
-        .task-header span { flex-grow: 1; }
+        .task-header span {background-color: var(--color-surface); flex-grow: 1; }
 
         /* Summary Grid in Summary Card */
         .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -305,13 +305,12 @@ and fill out this template, following all the instructions in the comments below
                 <h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg> Scoring</span></h2>
                 <div class="assessment-grid">
                     <div id="assessment-block-visualizer" class="assessment-block">
-                        <h3>Визуальная Оценка</h3>
+                        <h3>Текущая Оценка</h3>
                         <div class="score-display">
-                            <div class="score-label">Текущая оценка:</div>
                             <span id="current-score-value" class="score-value"></span>
                         </div>
                         <div class="score-display" style="margin-top: 15px;">
-                            <div class="score-label">Потенциальная:</div>
+                           <h3>Потенциальная Оценка</h3>
                             <span id="potential-score-value" class="score-value"></span>
                         </div>
                     </div>
@@ -345,7 +344,7 @@ and fill out this template, following all the instructions in the comments below
                 <div class="task-block-wrapper">
                     <div class="task-block">
                         <div class="task-header">
-                           <h3>Тестовое задание</h3>
+                           <h3><span>Тестовое задание</span></h3>
                            <button class="action-button" id="download-task-md-btn" title="Сохранить задание в .md"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
                         </div>
                         <pre><code id="test-assignment-md">## Кейс-стади: Стратегия выхода на новый рынок (Go-To-Market)
@@ -362,7 +361,7 @@ and fill out this template, following all the instructions in the comments below
                     </div>
                     <div class="task-block">
                          <div class="task-header">
-                            <h3>Форма оценки ТЗ</h3>
+                            <h3><span>Форма оценки ТЗ</span></h3>
                             <button class="action-button" id="download-evaluation-md-btn" title="Сохранить форму оценки в .md"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
                         </div>
                         <pre><code id="evaluation-form-md">| Критерий                  | Оценка (1-5) | Комментарии                                |
