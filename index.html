@@ -1,67 +1,79 @@
 <!--
-INTERNAL AI ASSESSOR INSTRUCTIONS:
-
+ ============== INSTRUCTIONS FOR AI ================ 
 ROLE:
-You are the world’s leading virtual recruiter and assessor for iGaming/online-casino roles in a fully remote environment. Your mission is to auto-populate this CV evaluation template based on the candidate’s resume (and optional JD), without altering any HTML, CSS, or JavaScript.
+You are a world-class virtual recruiter and automated resume evaluator for remote iGaming/online-casino positions. Your mission is to take a candidate’s résumé (and, if available, the position or job description) and dynamically populate **only** the content of the Hiring CoPilot Report Template, without touching any HTML markup, CSS, or JavaScript.
 
-KEY PRINCIPLES:
-1. DOMAIN > EVERYTHING
-   • Prioritize direct iGaming experience: payments, bonus engines, compliance (KYC/AML), anti-fraud, game testing, etc.
-2. ENGINEERING MINDSET
-   • Look for system design, automation, CI/CD pipelines, architectural ownership.
-3. BUSINESS CONTEXT
-   • Emphasize understanding of player retention metrics (LTV, churn), time-to-market, uptime and stability.
-4. DEPTH OVER BREADTH
-   • Reward deep expertise in one core technology over shallow knowledge of many.
-5. SOFT SKILLS
-   • Assess autonomy, proactivity, written and verbal communication in a remote setting.
+POSITION DESCRIPTION (JD) IS OPTIONAL:
+– If a job description or vacancy details are provided, align your evaluation to those requirements.  
+– If no JD is available, generate all necessary context and requirements yourself, drawing on accepted market benchmarks and best practices in the iGaming industry.
 
-INPUTS:
-• This HTML template (do NOT modify markup, styles, or scripts).
-• Candidate’s CV (text/PDF).
-• Optional: Job description or vacancy profile for the role and grade.
+TEMPLATE SECTIONS TO FILL:
 
-PROCESS:
-1. Parse CV into sections: iGaming domain experience, technical skills, business case work, soft skills.
-2. If JD provided, align required competencies and responsibilities to the candidate’s experience.
-3. Determine dynamic weights based on role seniority/grade and JD emphasis:
-   • Domain Knowledge: 25–40%
-   • Technical Depth: 20–35%
-   • Business Understanding: 15–30%
-   • Soft Skills: 15–30%
-   (Adjust within these ranges according to JD priorities.)
-4. Define additional weight constraints:
-   • Total weight of each section must be between 10% and 40% of the sum of all section weights.
-   • Weight of each competency within a section must be between 10% and 45% of that section’s total weight.
-5. For each evaluation criterion:
-   a. Score candidate on a 1–5 scale.
-   b. Calculate weighted score: score × weight.
-   c. Insert numeric score, weight %, and weighted total into template fields.
-   d. Add a concise comment with concrete evidence (project name, metrics, achievement).
-6. In the designated Markdown section for the role and grade, generate a tailored test assignment and an evaluation form each time. Format both in Markdown as per the template:
-   - **Test Assignment**: describe task objectives, deliverables, and success criteria.
-   - **Evaluation Form**: list criteria mirroring template competencies with scoring guidelines.
-7. Summarize overall fit (1–2 sentences) in the “Summary” field.
+1. **Report Header** (`.report-header`):
+   - Set `data-gender` attribute (“male” / “female” / “neutral”) to display the correct icon.  
+   - Replace “Candidate: [Name Surname]”.  
+   - Replace “Position: [Position Title]” in `#position-title` (this also selects the weighting profile).
 
-OVERLAP AVOIDANCE:
-• Ensure test assignment generation and its evaluation form are separate from standard scoring steps.
-• Do not duplicate instructions already covered in steps 1–5; maintain clarity by isolating Markdown generation in step 6.
+2. **Summary Card** (`#card-summary`):
+   - **Verdict** (`.verdict-block p`): overall match (strong/average/weak), two key strength areas, one primary risk.  
+   - **Pros** (`.pros-block ul`): up to 4 bullet points of top achievements or strengths.  
+   - **Risks** (`.risks-block ul`): one critical risk plus two additional risks or red flags.
+
+3. **Competency Cards** (`#card-hard-skills`, `#card-tech-stack`, `#card-soft-skills`, `#card-formal`):
+   - Fill each section’s **category weight** (`.category-weight`) in percent.  
+   - For each `<li>`:
+     - Set the class to `score-good` / `score-average` / `score-bad`.  
+     - Replace `.competency-name` with the competency title.  
+     - Replace `.item-weight` with that competency’s weight in percent.  
+     - Replace `.competency-justification` with a concrete example from the résumé.
+
+4. **Pre-Grade Card** (`#card-grade`):
+   - Replace `.grade-value` with the level (Junior / Middle / Senior / Lead / Head).  
+   - Write a justification paragraph (`<p><strong>Justification:</strong>…</p>`) explaining why this level.
+
+5. **Risk / Verification Card** (`#card-doubts`):
+   - One `<li class="question-critical">`: describe the critical risk and a verification question.  
+   - Two `<li class="question-regular">`: describe additional risks and verification questions.
+
+6. **Final Assessment Card** (`#card-final-assessment`):
+   - Script will auto-calculate and display:
+     - `#current-score-value` and `#potential-score-value`.  
+     - Populate `#verification-list` with items to verify and their impact.  
+   - Leave the three scenario templates and four plan steps as-is, or adjust labels if needed.
+
+7. **Test Assignment Section** (`#card-test-assignment`):
+   - Edit the Markdown inside `#test-assignment-md` with a case-study brief: context, requirements, success metrics.  
+   - Edit the Markdown inside `#evaluation-form-md` with an evaluation table matching the template criteria.
+
+KEY EVALUATION PRINCIPLES:
+1. **iGaming Domain Expertise** (payments, bonus engines, KYC/AML, anti-fraud, game testing).  
+2. **Engineering Rigor** (system design, CI/CD, automation, architectural ownership).  
+3. **Business Acumen** (player LTV, churn, time-to-market, availability and stability).  
+4. **Depth over Breadth** (high expertise in one core area trumps superficial knowledge of many).  
+5. **Soft Skills** (autonomy, initiative, written/verbal communication in remote settings).
+
+EVALUATION PROCESS:
+1. Parse the résumé into the template’s sections (hard skills, tech stack, soft skills, formal info, etc.).  
+2. If a JD is provided, map its requirements to the candidate’s experience; otherwise, infer requirements from industry benchmarks.  
+3. Select the weighting profile by `Position Title` from the JSON in `<script id="weighting-profiles-data">`.  
+4. For each section:
+   a. Set the section weight (`.category-weight`).  
+   b. For each competency `<li>`: assign class (`score-*`), fill `competency-name`, `item-weight`, `competency-justification`.  
+5. In the Summary and Doubts cards, craft the verdict, pros and risks.  
+6. Assign the pre-grade level and justification.  
+7. Populate the Markdown templates for test assignment and evaluation form.  
+8. Leave HTML, CSS and JS intact—let the embedded script compute final scores and verifications.
 
 FINAL CHECK:
-• Ensure all fields are populated clearly and logically.
-• Verify template layout, styling, and scripts are untouched.
-• Deliver filled template for operator review.
+– All dynamic fields (texts, percentages, score classes, Markdown blocks) are filled.  
+– No changes to HTML structure, styles or scripts.  
+– All section IDs and classes are used exactly as in the template.  
 -->
 
 <!--
 * Hiring CoPilot Report Template
-* Version: 1.1.0
-* Created: 23.07.2025
-* 
-* CHANGELOG (v1.1.0):
-* - CHG: The "Send via Email" button has been renamed to "Generate Email" and now displays an informational alert with instructions for the user.
-* - TPL: All specific candidate and project data has been replaced with generic placeholders to create a reusable template.
-* - MAINT: The logic for generating the email subject and body has been updated to work with placeholder data.
+* Version: 1.0.0
+* Created: 24.07.2025
 -->
 <!DOCTYPE html>
 <html lang="ru" data-theme="dark">
@@ -71,7 +83,7 @@ FINAL CHECK:
     <title>Hiring CoPilot - [Candidate Name]</title>
     <style>
         /* ============================================= */
-        /* ============== VERSION 1.1.0 ================ */
+        /* ============== VERSION 1.0.0 ================ */
         /* ============================================= */
 
         /* ============================================= */
@@ -106,10 +118,11 @@ FINAL CHECK:
         .control-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
         .control-btn svg { width: 22px; height: 22px; pointer-events: none; }
         #search-toggle-btn { display: none; }
-        #theme-switcher .icon-sun { display: none; }
-        #theme-switcher .icon-moon { display: block; }
-        [data-theme="light"] #theme-switcher .icon-sun { display: block; }
-        [data-theme="light"] #theme-switcher .icon-moon { display: none; }
+        /* Inverted Theme Switcher Logic */
+        #theme-switcher .icon-sun { display: block; }
+        #theme-switcher .icon-moon { display: none; }
+        [data-theme="light"] #theme-switcher .icon-sun { display: none; }
+        [data-theme="light"] #theme-switcher .icon-moon { display: block; }
         #searchInput { flex-grow: 1; min-width: 150px; padding: 12px 15px; border-radius: 8px; font-size: 16px; background-color: var(--color-bg); color: var(--color-text-primary); border: 1px solid var(--color-border); height: 44px; transition: all 0.2s ease; }
         #searchInput:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-a); }
 
@@ -130,6 +143,8 @@ FINAL CHECK:
         /* ============================================= */
         #scrollToTopBtn { position: fixed; bottom: 20px; right: 20px; z-index: 1000; opacity: 0; visibility: hidden; transform: translateY(20px); transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; }
         #scrollToTopBtn.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        #scrollToTopBtn { color: var(--score-average); border-color: var(--score-average); }
+        #scrollToTopBtn:hover { color: var(--color-primary); border-color: var(--color-primary); }
         footer { text-align: center; margin-top: 2rem; padding: 2rem 0; color: var(--color-text-secondary); font-size: 0.9em; }
         footer p { margin: 0.25rem 0; }
         footer .copyright { color: var(--color-primary); font-weight: bold; }
@@ -161,9 +176,8 @@ FINAL CHECK:
         .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .summary-block { padding: 20px; border-radius: 8px; border: 1px solid var(--color-border); }
         .summary-block h4 { margin-top: 0; margin-bottom: 15px; font-size: 1.1em; }
-        .summary-block ul { list-style: none; padding: 0; } .summary-block ul li { margin-bottom: 10px; }
-        .summary-block.pros-block ul li::before { content: '🟢'; margin-right: 10px; }
-        .summary-block.risks-block ul li::before { content: '🔴'; margin-right: 10px; }
+        .summary-block ul { list-style: none; padding-left: 5px; } .summary-block ul li { margin-bottom: 10px; }
+        .summary-block.pros-block { border-left: 4px solid var(--score-good); }
         .summary-block.risks-block { border-left: 4px solid var(--danger-color); }
         .summary-block.verdict-block, .summary-block.recommendation-block { grid-column: 1 / -1; }
 
@@ -183,15 +197,31 @@ FINAL CHECK:
         /* ============================================= */
         /* ============= SPECIFIC COMPONENTS =========== */
         /* ============================================= */
-        .grade-card .grade-value { font-size: 1.6em; font-weight: bold; color: var(--color-primary); padding: 12px; background-color: var(--color-bg); border: 1px solid var(--color-border); border-radius: 8px; text-align: center; margin-bottom: 15px; }
+        .grade-card .grade-value { font-size: 1.6em; font-weight: bold; padding: 12px; border: 1px solid var(--color-border); border-radius: 8px; text-align: center; margin-bottom: 15px; }
+        /* Automatic grade styling */
+        .grade-value.grade-bad { background-color: var(--score-bad); color: var(--color-bg); }
+        .grade-value.grade-average { background-color: var(--score-average); color: var(--color-bg); }
+        .grade-value.grade-good { background-color: var(--score-good); color: var(--color-bg); }
+
         pre { background-color: var(--color-surface-hover); padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace; font-size: 15px; line-height: 1.6; border: 1px solid var(--color-border); margin-top: 0; white-space: pre-wrap; word-break: break-word; max-height: 400px; overflow-y: auto; }
+        
+        #card-doubts h2 > span svg { color: var(--score-average); } /* Risk section icon color */
         .question-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
         .question-list li { padding: 15px; border: 1px solid var(--color-border); border-left-width: 4px; border-radius: 8px; background-color: var(--color-bg); margin: 0; }
         .question-list .question-critical { border-left-color: var(--danger-color); }
-        .question-list .question-regular { border-left-color: var(--color-primary); }
+        .question-list .question-regular { border-left-color: var(--score-average); }
         .risk-title { font-weight: 600; color: var(--color-text-secondary); font-size: 0.9em; margin-bottom: 8px; }
         .verification-question { margin: 0; font-style: italic; }
 
+        /* Test Assignment Card Buttons */
+        #card-test-assignment .action-button {
+            color: var(--score-average);
+            border-color: var(--score-average);
+        }
+        #card-test-assignment .action-button:hover {
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
 
         /* --- Final Assessment Section --- */
         #card-final-assessment h2 { font-size: 1.4em; margin-bottom: 25px; }
@@ -201,15 +231,16 @@ FINAL CHECK:
         #assessment-block-visualizer .score-display { margin-top: 10px; }
         #assessment-block-visualizer .score-label { font-size: 0.9em; color: var(--color-text-secondary); }
         #assessment-block-visualizer .score-value { font-size: 1.4em; font-weight: bold; padding: 4px 8px; border-radius: 6px; color: #fff; }
-        #assessment-block-visualizer .score-value.score-bad { background-color: var(--score-bad); }
-        #assessment-block-visualizer .score-value.score-average { background-color: var(--score-average); color: var(--color-button-text); }
-        #assessment-block-visualizer .score-value.score-good { background-color: var(--score-good); color: var(--color-button-text); }
+        #assessment-block-visualizer .score-value.score-bad { background-color: var(--score-bad); color: var(--color-bg); }
+        #assessment-block-visualizer .score-value.score-average { background-color: var(--score-average); color: var(--color-bg); }
+        #assessment-block-visualizer .score-value.score-good { background-color: var(--score-good); color: var(--color-bg); }
         #assessment-block-verification ul { list-style: none; padding: 0; margin-top: 10px; font-size: 0.9em; }
         #assessment-block-verification li { display: flex; justify-content: space-between; margin-bottom: 8px; }
         #assessment-block-verification .risk-value { font-weight: 600; color: var(--color-primary); }
         .scenario-list, .plan-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
         .scenario-list .scenario, .plan-list .plan-step { padding: 15px; border-radius: 8px; background-color: var(--color-surface); margin: 0; border: 1px solid var(--color-border); border-left-width: 4px; }
-        .scenario.scenario-success, .plan-list .plan-step { border-left-color: var(--score-good); }
+        .scenario.scenario-success { border-left-color: var(--score-good); }
+        .plan-list .plan-step { border-left-color: var(--color-primary); }
         .scenario.scenario-partial { border-left-color: var(--score-average); }
         .scenario.scenario-danger { border-left-color: var(--danger-color); }
         .task-block-wrapper { display: grid; grid-template-columns: 1fr; gap: 20px; font-size: 0.9em; color: var(--color-text-primary); }
@@ -314,7 +345,7 @@ FINAL CHECK:
             <div id="card-tech-stack" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Software</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Технология / Инструмент 1<span class="item-weight"></span></span><p class="competency-justification">Пример, демонстрирующий экспертное владение.</p></li><li class="score-average"><span class="competency-name">Технология / Инструмент 2<span class="item-weight"></span></span><p class="competency-justification">Упомянут в опыте, но требует проверки на актуальность.</p></li><li class="score-good"><span class="competency-name">Технология / Инструмент 3<span class="item-weight"></span></span><p class="competency-justification">Критически важный инструмент для данной роли.</p></li></ul></div>
             <div id="card-soft-skills" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Soft Skills</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Гибкий навык 1 (например, Проактивность)<span class="item-weight"></span></span><p class="competency-justification">Пример из карьерного пути, демонстрирующий это качество.</p></li><li class="score-good"><span class="competency-name">Гибкий навык 2 (например, Коммуникация)<span class="item-weight"></span></span><p class="competency-justification">Оценка на основе качества резюме или сопроводительного письма.</p></li><li class="score-average"><span class="competency-name">Гибкий навык 3 (например, Работа в команде)<span class="item-weight"></span></span><p class="competency-justification">Требует дополнительной проверки на собеседовании.</p></li><li class="score-bad"><span class="competency-name">Гибкий навык 4 (например, Работа с ИИ)<span class="item-weight"></span></span><p class="competency-justification">Нет упоминаний об использовании современных инструментов.</p></li></ul></div>
             <div id="card-formal" class="card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Add. Info</span><span class="category-weight"></span></h2><ul class="competency-list"><li class="score-good"><span class="competency-name">Уровень иностранного языка<span class="item-weight"></span></span><p class="competency-justification">Указан уровень '[Proficiency Level]'.</p></li><li class="score-good"><span class="competency-name">Профильное образование<span class="item-weight"></span></span><p class="competency-justification">Наличие степени в [Название области].</p></li><li class="score-average"><span class="competency-name">Курсы и сертификаты<span class="item-weight"></span></span><p class="competency-justification">Есть сертификаты, но их релевантность требует уточнения.</p></li></ul></div>
-            <div id="card-grade" class="card grade-card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Pre-Grade</span></h2><div class="grade-value">[Оценочный уровень]</div><p><strong>Обоснование:</strong> Опыт кандидата соответствует требованиям для уровня [Junior/Middle/Senior/Lead/Head].</p></div>
+            <div id="card-grade" class="card grade-card"><h2><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Pre-Grade</span></h2><div class="grade-value">Middle / Intermediate</div><p><strong>Обоснование:</strong> Опыт кандидата соответствует требованиям для уровня [Junior/Middle/Senior/Lead/Head].</p></div>
             
             <!-- Doubts Section -->
             <div id="card-doubts" class="card">
@@ -408,7 +439,7 @@ FINAL CHECK:
     <!-- ============================================= -->
     <footer>
         <p>Generated by MAE OMA-II / HRCV</p>
-        <p class="copyright">© <span id="copyright-year"></span> [Your Company Name]</p>
+        <p class="copyright">© <span id="copyright-year"></span> McBile AI-Engine</p>
     </footer>
 
     <!-- ============================================= -->
@@ -441,7 +472,7 @@ FINAL CHECK:
     <!-- ============================================= -->
     <script>
         /* ============================================= */
-        /* ============== VERSION 1.1.0 ================ */
+        /* ============== VERSION 1.0.0 ================ */
         /* ============================================= */
         (() => {
             // ========== MODULE: CONFIGURATION ==========
@@ -473,6 +504,7 @@ FINAL CHECK:
                 allCards: D.querySelectorAll('.card'),
                 copyrightYearSpan: D.getElementById('copyright-year'),
                 positionTitleEl: D.getElementById('position-title'),
+                gradeValueEl: D.querySelector('.grade-card .grade-value'),
                 currentScoreEl: D.getElementById('current-score-value'),
                 potentialScoreEl: D.getElementById('potential-score-value'),
                 verificationListEl: D.getElementById('verification-list'),
@@ -529,6 +561,23 @@ FINAL CHECK:
                     }
                 }
             };
+            
+            /**
+             * Applies styling to the grade value block based on its text content.
+             */
+            const applyGradeStyling = () => {
+                if (!DOM.gradeValueEl) return;
+                const text = DOM.gradeValueEl.textContent.toLowerCase();
+                let gradeClass = 'grade-bad'; // Default class
+                
+                if (/\b(senior|lead|head)\b/.test(text)) {
+                    gradeClass = 'grade-good';
+                } else if (/\b(middle|mid|intermediate)\b/.test(text)) {
+                    gradeClass = 'grade-average';
+                }
+                
+                DOM.gradeValueEl.classList.add(gradeClass);
+            };
 
             // ========== MODULE: SCORING LOGIC ==========
             const getScoreColorClass = (score) => {
@@ -565,14 +614,14 @@ FINAL CHECK:
                             sectionPotentialPoints += potentialScore * weight;
                             sectionTotalWeight += weight;
                             if (scoreClass === 'score-average') {
-                                const scoreDelta = (potentialScore - currentScore) * weight;
-                                const impact = (scoreDelta / 100) * (sectionWeight / 100) * 5;
-                                pointsToVerify.push({ name: item.querySelector('.competency-name').textContent.replace(/\[\d+%\]$/, '').trim(), impact: impact });
+                                const rawImpact = (potentialScore - currentScore) * weight;
+                                pointsToVerify.push({ name: item.querySelector('.competency-name').textContent.replace(/\[\d+%\]$/, '').trim(), impact: rawImpact, sectionWeight: sectionWeight, sectionTotalWeight: 0});
                             }
                         }
                     });
                     
                     if (sectionTotalWeight > 0) {
+                        pointsToVerify.forEach(p => { if (p.sectionWeight === sectionWeight) p.sectionTotalWeight = sectionTotalWeight; });
                         totalCurrentScore += (sectionCurrentPoints / sectionTotalWeight) * sectionWeight;
                         totalPotentialScore += (sectionPotentialPoints / sectionTotalWeight) * sectionWeight;
                         totalCategoryWeight += sectionWeight;
@@ -586,7 +635,27 @@ FINAL CHECK:
                     const originalAverage = currentAverage;
                     currentAverage *= 0.75;
                     const integrityImpact = originalAverage - currentAverage;
-                    pointsToVerify.unshift({ name: "Критический риск для верификации", impact: integrityImpact });
+                    pointsToVerify.unshift({ name: "Критический риск для верификации", impact: integrityImpact, isIntegrityRisk: true });
+                }
+
+                // Finalize impact calculation to ensure sum matches delta
+                const totalDelta = potentialAverage - currentAverage;
+                let totalRawImpact = 0;
+                let integrityRiskValue = 0;
+
+                pointsToVerify.forEach(p => {
+                    if (p.isIntegrityRisk) {
+                        integrityRiskValue = p.impact;
+                    } else {
+                        p.impact = (p.impact / p.sectionTotalWeight * p.sectionWeight) / totalCategoryWeight;
+                        totalRawImpact += p.impact;
+                    }
+                });
+
+                if (totalRawImpact > 0) {
+                    const nonIntegrityDelta = totalDelta - integrityRiskValue;
+                    const scalingFactor = nonIntegrityDelta / totalRawImpact;
+                    pointsToVerify.forEach(p => { if (!p.isIntegrityRisk) p.impact *= scalingFactor; });
                 }
 
                 return { currentAverage, potentialAverage, pointsToVerify };
@@ -658,6 +727,7 @@ FINAL CHECK:
                 DOM.copyrightYearSpan.textContent = new Date().getFullYear();
                 applyTheme(localStorage.getItem('cvReportTheme') || 'dark');
                 setWeights();
+                applyGradeStyling(); // New function call
                 setupEventListeners();
                 const scores = calculateScores();
                 renderScores(scores);
