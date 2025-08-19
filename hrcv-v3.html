@@ -1,0 +1,273 @@
+
+<!-- ПРОТОКОЛ MAE OMA-II / HRCV ====
+Дата создания: 2025.07.08 CET 10:29
+Дата v3.0.0: 2025.08.17 CET 14:00
+Дата v3.1.0: 2025.08.18 CET 09:30
+-------------------------------------
+
+==== ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА ====
+Это файл инициализации ролей. После получения этого документа немедленно и полностью перейди к указанной ниже модели работы.
+Не пересказывай и не суммируй — действуй строго по протоколу. Этот протокол является полной и исчерпывающей инструкцией для ИИ.
+Твой первый ответ после загрузки файла должен быть подтверждением активации и запросом на запуск анализа.
+-->
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiring CoPilot - [YY.MM.DD Position. Candidate Name]</title>
+
+    <!-- 
+    ==== CHANGELOG v3.1.0 (Restoration & Refinement) ==== 
+    Это обновление направлено на восстановление востребованной функциональности из v2.0.0 и улучшение визуального представления ключевых данных.
+    ------------------------------------------------------
+    [Restored] — Восстановленная функциональность
+    [+] Восстановлен Header v2.0.0: В шапку возвращены выпадающие меню "Оглавление" (быстрый переход по секциям) и "Действия" (с функцией формирования Email).
+    [+] Восстановлен блок "Test Assignment": В основную колонку возвращена карточка с тестовым заданием и критериями оценки, включая функционал скачивания в формате .md.
+    ------------------------------------------------------
+    [UI/UX] — Визуальные улучшения
+    [!] Изменен стиль Pre-Grade: Отображение грейда теперь визуально идентично компонентам "Текущая" и "Потенциальная оценка" для достижения консистентности.
+    [!] Упрощен Вердикт: Из заголовка вердикта убрано числовое значение (%), оставлена только качественная оценка (Strong/Average/Weak Candidate) для более быстрого считывания.
+    ------------------------------------------------------
+    [Content] — Улучшение контента
+    [*] Детализирован Interview Plan: Плейсхолдеры в плане интервью заменены на конкретные, развернутые примеры рисков и вопросов, что повышает практическую ценность отчета.
+
+    ==== CHANGELOG v3.0.0 (Clarity & Agility) ==== 
+    [MAJOR] — Внедрен двухколоночный "Dashboard" макет и реализован Data-Driven рендеринг компетенций из JSON.
+    [UI/UX] — Добавлены прогресс-бары для компетенций и сворачиваемые карточки.
+    -->
+    <style>
+        :root {
+            --color-bg: #F9FAFB; --color-surface: #FFFFFF; --color-primary: #3B82F6; --color-primary-a: rgba(59, 130, 246, 0.15); --color-button-text: #FFFFFF; --color-text-primary: #111827; --color-text-secondary: #4B5563; --color-border: #E5E7EB;
+            --critical-color: #FF0000; --danger-color: #EF4444; --danger-bg: rgba(239, 68, 68, 0.1); --color-surface-hover: rgba(59, 130, 246, 0.1);
+            --score-good: #16A34A; --score-average: #F59E0B; --score-bad: #DC2626; --risk-medium-color: #3B82F6;
+        }
+        [data-theme="dark"] {
+            --color-bg: #111827; --color-surface: #1F2937; --color-primary: #3B82F6; --color-primary-a: rgba(34, 211, 238, 0.15); --color-button-text: #FFFFFF; --color-text-primary: #E9FAFA; --color-text-secondary: #B0BEC5; --color-border: #374151;
+            --critical-color: #FF0000; --danger-color: #F87171; --danger-bg: rgba(248, 113, 113, 0.1); --color-surface-hover: #1E2840;
+            --score-good: #4ADE80; --score-average: #FBBF24; --score-bad: #F87171; --risk-medium-color: #60A5FA;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--color-bg); color: var(--color-text-primary); font-size: 16px; line-height: 1.6; }
+        .container { width: 95%; max-width: 1400px; margin: 0 auto; padding: 20px 0; }
+        #controls-section { position: sticky; top: 0; z-index: 100; background: var(--color-bg); padding: 12px 0; border-bottom: 1px solid var(--color-border); }
+        .controls-panel-container { width: 95%; max-width: 1400px; margin: 0 auto; }
+        .controls-panel { display: flex; gap: 0.75em; align-items: center; flex-wrap: wrap; }
+        #header-title { font-size: 1.25em; font-weight: 600; color: var(--color-primary); margin-right: auto; padding-right: 1em; white-space: nowrap; }
+        .control-btn { position: relative; background-color: var(--color-surface); border: 1px solid var(--color-border); padding: 0; border-radius: 8px; color: var(--color-text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; height: 44px; width: 44px; flex-shrink: 0; transition: all 0.2s ease; }
+        .control-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+        .control-btn svg { width: 22px; height: 22px; pointer-events: none; }
+        #theme-switcher .icon-sun { display: block; } #theme-switcher .icon-moon { display: none; }
+        [data-theme="light"] #theme-switcher .icon-sun { display: none; } [data-theme="light"] #theme-switcher .icon-moon { display: block; }
+        .dropdown-wrapper { position: relative; }
+        .dropdown-menu { display: none; position: absolute; top: 110%; right: 0; background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 8px; z-index: 100; min-width: 200px; }
+        .dropdown-menu.is-open { display: block; }
+        .dropdown-menu a { display: block; padding: 10px 15px; text-decoration: none; color: var(--color-text-primary); border-radius: 4px; }
+        .dropdown-menu a:hover { background-color: var(--color-surface-hover); }
+        #actions-dropdown .action-item { padding: 10px; }
+        #actions-dropdown .email-group { display: flex; gap: 10px; }
+        #actions-dropdown .email-input { flex-grow: 1; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--color-border); background-color: var(--color-bg); color: var(--color-text-primary); }
+        #actions-dropdown .btn-action { display: block; width: 100%; background-color: var(--color-primary); color: var(--color-button-text); padding: 10px; border: none; border-radius: 6px; font-weight: 500; cursor: pointer; text-align: center; }
+        .dashboard-layout { display: grid; grid-template-columns: 320px 1fr; gap: 30px; align-items: flex-start; }
+        .dashboard-sidebar { position: sticky; top: 90px; display: flex; flex-direction: column; gap: 20px; }
+        .dashboard-content { display: flex; flex-direction: column; gap: 25px; }
+        .card { background-color: var(--color-surface); border-radius: 12px; border: 1px solid var(--color-border); overflow: hidden; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 20px 25px; border-bottom: 1px solid var(--color-border); }
+        .card-header h2 { font-size: 1.2em; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.75em; color: var(--color-primary); }
+        .card-header h2 svg { width: 22px; height: 22px; flex-shrink: 0; }
+        .card-content { padding: 25px; transition: all 0.3s ease-in-out; }
+        .card.is-collapsed .card-content { padding-top: 0; padding-bottom: 0; max-height: 0; visibility: hidden; opacity: 0; }
+        .card-toggle-btn { transform: rotate(0deg); transition: transform 0.3s ease; }
+        .card.is-collapsed .card-toggle-btn { transform: rotate(-90deg); }
+        .sidebar-card { padding: 20px; }
+        #candidate-header { text-align: center; }
+        #candidate-header h2 { font-size: 1.3em; margin-bottom: 5px; }
+        #candidate-header h3 { color: var(--color-text-secondary); font-weight: 400; font-size: 1em; }
+        #summary-verdict-block { padding: 15px; border-radius: 8px; border-left-width: 4px; border-style: solid; background-color: var(--color-bg); }
+        #summary-verdict-block.verdict-good { border-left-color: var(--score-good); } #summary-verdict-block.verdict-average { border-left-color: var(--score-average); } #summary-verdict-block.verdict-bad { border-left-color: var(--danger-color); }
+        #summary-verdict-title { font-size: 1.1em; font-weight: 600; margin-bottom: 8px; }
+        #summary-verdict-text { font-size: 0.9em; line-height: 1.5; }
+        .score-display { display: flex; justify-content: space-between; align-items: center; }
+        .score-label { font-size: 1em; font-weight: 500; }
+        .score-value { font-size: 1.1em; font-weight: bold; padding: 4px 10px; border-radius: 6px; color: var(--color-bg); }
+        .score-value.score-bad { background-color: var(--score-bad); } .score-value.score-average { background-color: var(--score-average); } .score-value.score-good { background-color: var(--score-good); }
+        .sidebar-card h4 { font-size: 1em; margin-bottom: 10px; border-bottom: 1px solid var(--color-border); padding-bottom: 8px; }
+        #verification-list { list-style: none; font-size: 0.9em; display: flex; flex-direction: column; gap: 8px; }
+        #verification-list li { display: flex; justify-content: space-between; } #verification-list .risk-value { font-weight: 600; color: var(--score-good); }
+        .competency-list { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+        .competency-item { background-color: var(--color-bg); border: 1px solid var(--color-border); border-radius: 8px; padding: 15px 20px; }
+        .competency-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .competency-name { font-weight: 600; }
+        .item-weight { font-size: 0.8em; font-weight: 500; color: var(--color-text-secondary); }
+        .progress-bar-wrapper { height: 8px; background-color: var(--color-border); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+        .progress-bar { height: 100%; border-radius: 4px; transition: width 0.5s ease-in-out; }
+        .competency-item.score-good .progress-bar { background-color: var(--score-good); width: 99%; }
+        .competency-item.score-average .progress-bar { background-color: var(--score-average); width: 60%; }
+        .competency-item.score-bad .progress-bar { background-color: var(--score-bad); width: 9%; }
+        .competency-justification { font-size: 0.9em; color: var(--color-text-secondary); }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .summary-block { padding: 20px; border-radius: 8px; border: 1px solid var(--color-border); background-color: var(--color-bg); } .summary-block h4 { margin-top: 0; margin-bottom: 15px; font-size: 1.1em; } 
+        .summary-block ul { list-style: none; padding-left: 5px; } .summary-block ul li { margin-bottom: 10px; }
+        .summary-block.pros-block { border-left: 4px solid var(--score-good); } .summary-block.risks-block { border-left: 4px solid var(--danger-color); }
+        .plan-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px; }
+        .plan-step { padding: 15px; border-radius: 8px; background-color: var(--color-bg); border: 1px solid var(--color-border); border-left-width: 4px; border-left-color: var(--color-primary); }
+        .task-block-wrapper { display: grid; grid-template-columns: 1fr; gap: 20px; font-size: 0.9em; }
+        #evaluation-form-md, pre#test-assignment-md { background-color: var(--color-surface-hover); padding: 15px; border-radius: 8px; border: 1px solid var(--color-border); white-space: pre-wrap; word-break: break-word; }
+        .task-header { font-size: 1.1em; font-weight: 600; display: flex; align-items: center; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--color-border); margin-bottom: 15px; }
+        .task-header .action-button { margin-left: auto; }
+        footer { text-align: center; margin-top: 2rem; padding: 2rem 0; color: var(--color-text-secondary); font-size: 0.9em; }
+        footer p { margin: 0.25rem 0; } footer .copyright { color: var(--color-primary); font-weight: bold; }
+        @media (min-width: 1025px) { .task-block-wrapper { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 1024px) { .dashboard-layout { grid-template-columns: 1fr; } .dashboard-sidebar { position: static; } }
+        @media (max-width: 768px) { .summary-grid { grid-template-columns: 1fr; } }
+        @media print { body { font-size: 10pt; color: #000; background-color: #fff; } #controls-section, footer { display: none; } .dashboard-layout { display: block; } .dashboard-sidebar { position: static; page-break-after: always; } .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; } }
+    </style>
+</head>
+<body data-report-status="standard">
+
+    <!-- Header & Controls -->
+    <header id="controls-section">
+        <div class="controls-panel-container">
+            <div class="controls-panel">
+                <h1 id="header-title">Hiring CoPilot</h1>
+                <button id="theme-switcher" class="control-btn" title="Сменить тему"><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+                <div class="dropdown-wrapper">
+                  <button id="section-selector-btn" class="control-btn" title="Перейти к секции"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></button>
+                  <div id="section-selector-dropdown" class="dropdown-menu"></div>
+                </div>
+                <div class="dropdown-wrapper">
+                    <button id="actions-btn" class="control-btn" title="Действия"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+                    <div id="actions-dropdown" class="dropdown-menu">
+                        <div class="action-item"><button onclick="window.print()" class="btn-action">Сохранить в PDF</button></div>
+                        <div class="action-item"><div class="email-group"><input type="email" id="recipient-email" class="email-input" placeholder="Email получателя"></div></div>
+                        <div class="action-item"><button id="send-report-email" class="btn-action">Сформировать Email</button></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="dashboard-layout">
+                <aside class="dashboard-sidebar">
+                    <div class="card sidebar-card">
+                        <div id="candidate-header" data-gender="neutral">
+                            <h2>Кандидат: [Имя Фамилия]</h2>
+                            <h3 id="position-title">Позиция: [Название Позиции]</h3>
+                        </div>
+                    </div>
+                    <div class="card sidebar-card">
+                        <div id="summary-verdict-block">
+                            <h4 id="summary-verdict-title">Вердикт: [Average Candidate]</h4>
+                            <p id="summary-verdict-text">[Детальное текстовое обоснование вердикта.]</p>
+                        </div>
+                    </div>
+                    <div class="card sidebar-card">
+                        <div class="score-display">
+                            <span class="score-label">Текущая Оценка</span>
+                            <span id="current-score-value" class="score-value"></span>
+                        </div>
+                        <hr style="margin: 15px 0; border-color: var(--color-border);">
+                        <div class="score-display">
+                            <span class="score-label">Потенциальная Оценка</span>
+                            <span id="potential-score-value" class="score-value"></span>
+                        </div>
+                    </div>
+                    <div id="grade-card" class="card sidebar-card">
+                        <div class="score-display">
+                             <span class="score-label">Pre-Grade</span>
+                             <span id="grade-value-display" class="score-value">[Middle]</span>
+                        </div>
+                        <p style="font-size: 0.9em; margin-top: 15px;"><strong>Обоснование:</strong> [Детальное обоснование грейда.]</p>
+                    </div>
+                    <div class="card sidebar-card">
+                        <h4>Verification Points</h4>
+                        <ul id="verification-list"></ul>
+                    </div>
+                </aside>
+                <section class="dashboard-content">
+                    <div id="card-summary" class="card">
+                        <div class="card-header"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg> Overview</h2></div>
+                        <div class="card-content">
+                            <div class="summary-grid">
+                                <div class="summary-block pros-block"><h4>Ключевые плюсы</h4><ul><li>[Ключевое преимущество 1]</li><li>[Ключевое преимущество 2]</li></ul></div>
+                                <div class="summary-block risks-block"><h4>Основные риски</h4><ul><li>[Основной риск 1]</li><li>[Основной риск 2]</li></ul></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="card-hard-skills" class="card"><div class="card-header"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 11V3M11.5 21a.5.5 0 0 1-.5-.5V12h1v8.5a.5.5 0 0 1-.5.5zM4 11h16M4 14h16M5 8h14"></path></svg>Hard Skills</h2><button class="control-btn card-toggle-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></button></div><div class="card-content"><ul class="competency-list"></ul></div></div>
+                    <div id="card-tech-stack" class="card"><div class="card-header"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"></path></svg>Tech-Stack</h2><button class="control-btn card-toggle-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></button></div><div class="card-content"><ul class="competency-list"></ul></div></div>
+                    <div id="card-soft-skills" class="card"><div class="card-header"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Soft Skills</h2><button class="control-btn card-toggle-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></button></div><div class="card-content"><ul class="competency-list"></ul></div></div>
+                    <div id="card-formal" class="card"><div class="card-header"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>Add. Info</h2><button class="control-btn card-toggle-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></button></div><div class="card-content"><ul class="competency-list"></ul></div></div>
+                    <div id="card-interview-plan" class="card">
+                        <div class="card-header"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Interview Plan</h2></div>
+                        <div class="card-content">
+                            <ul class="plan-list">
+                                <li class="plan-step"><strong>Этап 1: Verification (15 мин) - Снятие рисков.</strong><br><em>Цель: Проверить компетенции с оценкой 'average'/'bad'.</em><br>1. <strong>Риск 'Опыт с Kubernetes':</strong> "В резюме упомянут Kubernetes, но без деталей. Расскажите о самом сложном вызове, с которым вы столкнулись при настройке CI/CD пайплайна в K8s. Как вы его решили?"<br>2. <strong>Риск 'Управление командой':</strong> "Вы указали опыт менторства. Опишите ситуацию, когда вам пришлось решать конфликт внутри команды или работать с низкопроизводительным сотрудником."</li>
+                                <li class="plan-step"><strong>Этап 2: Deep Dive (20 мин) - Глубокое погружение.</strong><br><em>Цель: Проверить самую сильную компетенцию кандидата.</em><br>1. <strong>Сильная сторона 'Архитектура микросервисов':</strong> "Представьте, что нам нужно разработать систему обработки платежей с высокой доступностью (99.99%). Какие паттерны (например, Saga, Circuit Breaker) и технологии вы бы использовали для обеспечения отказоустойчивости и консистентности данных?"</li>
+                                <li class="plan-step"><strong>Этап 3: Behavioral (10 мин) - Мотивация и Soft Skills.</strong><br><em>Цель: Оценить культурное соответствие и мотивацию.</em><br>1. <strong>Мотивация:</strong> "Что именно в нашей вакансии и компании привлекло ваше внимание? Какой следующий шаг в карьере вы для себя видите через 2-3 года?"<br>2. <strong>Саморазвитие:</strong> "Расскажите о последней технической книге, которую вы прочитали, или курсе, который прошли. Что нового вы узнали и как применили это на практике?"</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="card-test-assignment" class="card">
+                        <div class="card-header"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>Test Assignment</h2></div>
+                        <div class="card-content">
+                            <div class="task-block-wrapper">
+                                <div>
+                                    <div class="task-header"><h3>Бриф Задания</h3>
+                                        <button class="control-btn action-button" id="download-task-md-btn" title="Сохранить задание в .md"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
+                                    </div>
+                                    <pre id="test-assignment-md">## Задача: Проектирование API для KYC
+**Контекст:** Наша платформа расширяется и требует внедрения системы "Know Your Customer" (KYC) для верификации пользователей.
+**Требования:**
+1. Спроектировать RESTful API (описать эндпоинты, методы, DTO) для следующих операций:
+    - Загрузка документов (паспорт, ID-карта).
+    - Получение текущего статуса верификации.
+    - Уведомление пользователя об изменении статуса (через webhook).
+2. Описать схему хранения данных (например, в PostgreSQL).
+3. Указать, как бы вы обеспечили безопасность загружаемых файлов и данных.
+**Время выполнения:** 2 часа.
+**Метрики успеха:** Полнота описания API, логичность схемы данных, продуманность вопросов безопасности.</pre>
+                                </div>
+                                <div>
+                                    <div class="task-header"><h3>Критерии Оценки</h3>
+                                        <button class="control-btn action-button" id="download-evaluation-md-btn" title="Сохранить форму в .md"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
+                                    </div>
+                                    <div id="evaluation-form-md">
+                                        <table style="width:100%; border-collapse: collapse;"><thead><tr><th style="padding:8px; border:1px solid var(--color-border)">Критерий (1-5)</th><th style="padding:8px; border:1px solid var(--color-border)">Комментарии</th></tr></thead><tbody><tr><td style="padding:8px; border:1px solid var(--color-border)"><strong>Полнота API</strong></td><td style="padding:8px; border:1px solid var(--color-border)">Все ли кейсы покрыты, логичны ли эндпоинты.</td></tr><tr><td style="padding:8px; border:1px solid var(--color-border)"><strong>Проработка данных</strong></td><td style="padding:8px; border:1px solid var(--color-border)">Эффективность и нормализация схемы БД.</td></tr><tr><td style="padding:8px; border:1px solid var(--color-border)"><strong>Безопасность</strong></td><td style="padding:8px; border:1px solid var(--color-border)">Учтены ли основные векторы атак (MITM, XSS).</td></tr></tbody></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer><p>Generated by MAE OMA-II / HRCV</p><p class="copyright">© <span id="copyright-year"></span> McBile AI-Engine</p></footer>
+    <script id="candidate-data" type="application/json">
+    { "[Название Позиции]": { "grade": "Middle", "weights": { "hard-skills": 40, "tech-stack": 30, "soft-skills": 20, "formal": 10 }, "competencies": { "hard-skills": [ { "name": "Архитектура микросервисов", "scoreClass": "score-good", "weight": 50, "justification": "Подтвержденный опыт проектирования и внедрения сложных систем." }, { "name": "Управление командой / Менторство", "scoreClass": "score-average", "weight": 30, "justification": "Упомянут опыт менторства, но не ясен масштаб и обязанности." }, { "name": "Нагрузочное тестирование", "scoreClass": "score-bad", "weight": 20, "justification": "Навык отсутствует в резюме, но критичен для high-load проектов." } ], "tech-stack": [ { "name": "Go", "scoreClass": "score-good", "weight": 40, "justification": "Основной язык разработки в последних проектах (5+ лет)." }, { "name": "Kubernetes", "scoreClass": "score-average", "weight": 30, "justification": "Упомянуто использование, но неясна глубина знаний (настройка vs. простое использование)." }, { "name": "ClickHouse", "scoreClass": "score-average", "weight": 30, "justification": "Есть опыт, но необходимо проверить сложность решаемых задач." } ], "soft-skills": [ { "name": "Коммуникация и Командная работа", "scoreClass": "score-good", "weight": 50, "justification": "Опыт работы в распределенных командах, четкая структура резюме." }, { "name": "Самостоятельность и Проактивность", "scoreClass": "score-average", "weight": 50, "justification": "Решал задачи, но неясно, был ли инициатором улучшений. Требует проверки." } ], "formal": [ { "name": "Английский язык", "scoreClass": "score-good", "weight": 100, "justification": "Указан уровень C1 (Advanced)." } ] } }, "Default": { "grade": "Junior", "weights": { "hard-skills": 35, "tech-stack": 30, "soft-skills": 25, "formal": 10 } } }
+    </script>
+    <script>
+        (() => {
+            const D = document;
+            const DOM = { htmlElement: D.documentElement, themeSwitcher: D.getElementById('theme-switcher'), positionTitleEl: D.getElementById('position-title'), currentScoreEl: D.getElementById('current-score-value'), potentialScoreEl: D.getElementById('potential-score-value'), verificationListEl: D.getElementById('verification-list'), summaryVerdictBlock: D.getElementById('summary-verdict-block'), summaryVerdictTitle: D.getElementById('summary-verdict-title'), copyrightYearSpan: D.getElementById('copyright-year'), gradeValueDisplay: D.getElementById('grade-value-display'), sectionSelectorBtn: D.getElementById('section-selector-btn'), sectionSelectorDropdown: D.getElementById('section-selector-dropdown'), actionsBtn: D.getElementById('actions-btn'), actionsDropdown: D.getElementById('actions-dropdown'), sendEmailBtn: D.getElementById('send-report-email'), emailInput: D.getElementById('recipient-email'), candidateNameEl: D.querySelector('#candidate-header h2') };
+            const candidateData = JSON.parse(D.getElementById('candidate-data').textContent);
+            const applyTheme = (theme) => { DOM.htmlElement.setAttribute('data-theme', theme); localStorage.setItem('hrcvTheme', theme); };
+            const getProfile = () => { const positionText = DOM.positionTitleEl?.textContent.replace('Позиция: ', '').trim() || 'Default'; return candidateData[positionText] || candidateData.Default; };
+            const renderCompetencyCards = (profile) => { if (!profile.competencies) return; for (const [sectionId, items] of Object.entries(profile.competencies)) { const card = D.getElementById(`card-${sectionId}`); if (!card) continue; const listEl = card.querySelector('.competency-list'); if (!listEl) continue; listEl.innerHTML = ''; let fragment = D.createDocumentFragment(); items.forEach(item => { const li = D.createElement('li'); li.className = `competency-item ${item.scoreClass}`; li.innerHTML = `<div class="competency-header"><span class="competency-name">${item.name}</span><span class="item-weight">${item.weight}%</span></div><div class="progress-bar-wrapper"><div class="progress-bar"></div></div><p class="competency-justification">${item.justification}</p>`; fragment.appendChild(li); }); listEl.appendChild(fragment); } };
+            const getScoreVerdict = (score) => { if (score < 50) return { verdict: 'Weak Candidate', class: 'verdict-bad' }; if (score < 75) return { verdict: 'Average Candidate', class: 'verdict-average' }; return { verdict: 'Strong Candidate', class: 'verdict-good' }; };
+            const calculateScores = (profile) => { const scoreMap = { "score-good": 1.0, "score-average": 0.6, "score-bad": 0.09 }; let pointsToVerify = []; let totalCurrentScore = 0; if (!profile.weights || !profile.competencies) return { currentPercentage: 0, potentialPercentage: 0, pointsToVerify: [] }; for (const [sectionId, sectionWeight] of Object.entries(profile.weights)) { const items = profile.competencies[sectionId]; if (!items) continue; let sectionScore = 0; items.forEach(item => { const currentScore = scoreMap[item.scoreClass]; sectionScore += currentScore * (item.weight / 100); if (item.scoreClass !== 'score-good') { pointsToVerify.push({ name: item.name, scoreClass: item.scoreClass, sectionWeight, weight: item.weight }); } }); totalCurrentScore += sectionScore * (sectionWeight / 100); } let currentPercentage = totalCurrentScore * 100; let potentialIncrease = 0; pointsToVerify.forEach(p => { const scoreChangeDecimal = 1.0 - scoreMap[p.scoreClass]; const increase = scoreChangeDecimal * (p.weight / 100) * (p.sectionWeight / 100) * 100; potentialIncrease += increase; p.impact = increase; }); let potentialPercentage = currentPercentage + potentialIncrease; if (potentialPercentage > 100) potentialPercentage = 100; return { currentPercentage, potentialPercentage, pointsToVerify }; };
+            const renderScores = ({ currentPercentage, potentialPercentage, pointsToVerify }, profile) => { const verdictInfo = getScoreVerdict(currentPercentage); if (DOM.summaryVerdictBlock) { DOM.summaryVerdictBlock.className = `verdict-${verdictInfo.class.split('-')[1]}`; if(DOM.summaryVerdictTitle) DOM.summaryVerdictTitle.textContent = `Вердикт: ${verdictInfo.verdict}`; } if (DOM.currentScoreEl) { DOM.currentScoreEl.textContent = `${currentPercentage.toFixed(1)}%`; DOM.currentScoreEl.className = 'score-value ' + verdictInfo.class.replace('verdict', 'score'); } if (DOM.potentialScoreEl) { DOM.potentialScoreEl.textContent = `${potentialPercentage.toFixed(1)}%`; DOM.potentialScoreEl.className = 'score-value ' + getScoreVerdict(potentialPercentage).class.replace('verdict', 'score'); } if (DOM.verificationListEl) { DOM.verificationListEl.innerHTML = ''; let fragment = D.createDocumentFragment(); pointsToVerify.sort((a, b) => b.impact - a.impact).forEach(point => { const li = D.createElement('li'); li.innerHTML = `<span>${point.name}</span> <span class="risk-value">+${point.impact.toFixed(1)}%</span>`; fragment.appendChild(li); }); DOM.verificationListEl.appendChild(fragment); } if (DOM.gradeValueDisplay && profile.grade) { const gradeText = profile.grade.toLowerCase(); let gradeClass = 'score-average'; if (gradeText.includes('senior') || gradeText.includes('lead')) gradeClass = 'score-good'; else if (gradeText.includes('junior')) gradeClass = 'score-bad'; DOM.gradeValueDisplay.textContent = profile.grade; DOM.gradeValueDisplay.className = 'score-value ' + gradeClass; } };
+            const toggleDropdown = (btn, menu) => { const isOpen = menu.classList.toggle('is-open'); if(btn) btn.setAttribute('aria-expanded', isOpen); };
+            const downloadMarkdown = (content, fileName) => { const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' }); const url = URL.createObjectURL(blob); const a = D.createElement('a'); a.href = url; a.download = fileName; D.body.appendChild(a); a.click(); D.body.removeChild(a); URL.revokeObjectURL(url); };
+            const populateSectionSelector = () => { if(!DOM.sectionSelectorDropdown) return; const sections = Array.from(D.querySelectorAll('.card[id]')).map(card => ({ id: card.id, title: card.querySelector('h2')?.textContent.trim() || card.id })); let fragment = D.createDocumentFragment(); sections.forEach(s => { const a = D.createElement('a'); a.href = `#${s.id}`; a.textContent = s.title; fragment.appendChild(a); }); DOM.sectionSelectorDropdown.innerHTML = ''; DOM.sectionSelectorDropdown.appendChild(fragment); };
+            function setupEventListeners() { if(DOM.themeSwitcher) DOM.themeSwitcher.addEventListener('click', () => applyTheme(DOM.htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')); D.querySelectorAll('.card-toggle-btn').forEach(button => { button.addEventListener('click', () => { const card = button.closest('.card'); if (card) card.classList.toggle('is-collapsed'); }); }); if(DOM.sectionSelectorBtn) DOM.sectionSelectorBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); }); if(DOM.actionsBtn) DOM.actionsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.actionsBtn, DOM.actionsDropdown); }); if(DOM.sendEmailBtn) DOM.sendEmailBtn.addEventListener('click', () => { const recipient = DOM.emailInput.value; if (!recipient) { alert('Введите email'); return; } const subject = encodeURIComponent(`Отчет по кандидату: ${DOM.candidateNameEl.textContent.replace('Кандидат: ','').trim()}`); const body = encodeURIComponent('Здравствуйте,\n\nВо вложении находится полный отчет по кандидату.\n\nС уважением,\nHiring CoPilot.'); window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`; }); D.querySelectorAll('#download-task-md-btn, #download-evaluation-md-btn').forEach(btn => { btn.addEventListener('click', (e) => { const targetId = e.currentTarget.id === 'download-task-md-btn' ? 'test-assignment-md' : 'evaluation-form-md'; const mdContent = D.getElementById(targetId).textContent; const fileName = targetId.replace('-md', '').replace(/_/g,'-') + '.md'; downloadMarkdown(mdContent, fileName); }); }); D.addEventListener('click', (e) => { if (DOM.sectionSelectorDropdown && !DOM.sectionSelectorDropdown.contains(e.target) && !DOM.sectionSelectorBtn?.contains(e.target)) { toggleDropdown(null, DOM.sectionSelectorDropdown); } if (DOM.actionsDropdown && !DOM.actionsDropdown.contains(e.target) && !DOM.actionsBtn?.contains(e.target)) { toggleDropdown(null, DOM.actionsDropdown); } }); }
+            function init() { if(DOM.copyrightYearSpan) DOM.copyrightYearSpan.textContent = new Date().getFullYear(); applyTheme(localStorage.getItem('hrcvTheme') || 'dark'); const profile = getProfile(); renderCompetencyCards(profile); const scores = calculateScores(profile); renderScores(scores, profile); populateSectionSelector(); setupEventListeners(); }
+            init();
+        })();
+    </script>
+</body>
+</html>
