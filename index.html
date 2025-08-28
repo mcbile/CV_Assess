@@ -355,7 +355,7 @@ JD необязателен: если дан — оценка под JD, есл�
 :root {
 --color-bg: #EAEBEF;
 --color-surface: #E7E7E9;
---color-title: #FACC15;
+--color-title: #3B82F6;
 --color-primary: #0284C7;
 --color-primary-a: rgba(2, 132, 199, 0.15);
 --color-button-text: #111827;
@@ -372,8 +372,8 @@ JD необязателен: если дан — оценка под JD, есл�
 [data-theme="dark"] {
 --color-bg: #111827;
 --color-surface: #1F2937;
---color-title: #FACC15;
---color-primary: #0284C7;
+--color-title: #E2E8F0;
+--color-primary: #60A5FA;
 --color-primary-a: rgba(2, 132, 199, 0.15);
 --color-button-text: #111827;
 --color-text-primary: #E9FAFA;
@@ -392,7 +392,7 @@ JD необязателен: если дан — оценка под JD, есл�
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--color-bg); color: var(--color-text-primary); font-size: 16px; line-height: 1.5; }
-.container { width: 95%; max-width: 1400px; margin: 0 auto; padding: 15px 0; }
+.container { width: 95%; max-width: 1400px; margin: 0 auto; padding: 20px 0; }
 .dashboard-layout { display: grid; grid-template-columns: 320px 1fr; gap: 30px; align-items: flex-start; }
 .dashboard-sidebar { position: sticky; top: 90px; display: flex; flex-direction: column; gap: 20px; }
 .dashboard-content { display: flex; flex-direction: column; gap: 25px; }
@@ -453,9 +453,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 .content-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px; }
 .content-block { background-color: var(--color-bg); border: var(--border-width) solid var(--color-border); border-radius: 8px; padding: 20px; }
 .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-[data-block="justification"] h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.1em; transition: color 0.3s; font-weight: 600; }
+[data-block="justification"] h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.1em; transition: color 0.3s; font-weight: 600; line-height: 1.5; }
 .summary-grid { margin-top: 15px; }
-.score-badge { display: inline-block; padding: 2px 8px; font-size: 0.85em; font-weight: 600; border-radius: 6px; color: var(--color-button-text); text-align: center; vertical-align: middle; }
+.score-badge { display: inline-block; padding: 2px 8px; font-size: 0.85em; font-weight: 600; border-radius: 6px; color: var(--color-button-text); text-align: center; vertical-align: middle; line-height: 1.5; }
 .score-value.color-weak, .score-badge.color-weak { background-color: var(--color-weak); }
 .score-value.color-average, .score-badge.color-average { background-color: var(--color-average); }
 .score-value.color-success, .score-badge.color-success { background-color: var(--color-success); }
@@ -506,7 +506,8 @@ footer .copyright { color: var(--color-primary); font-weight: bold; }
 :root {
 --color-bg: #FFFFFF;
 --color-surface: #E7E7E9;
---color-primary: #3B82F6;
+--color-title: #567890;
+--color-primary: #0274C7;
 --color-primary-a: rgba(59, 130, 246, 0.15);
 --color-button-text: #111827;
 --color-text-primary: #111827;
@@ -597,15 +598,18 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 
 <!-- Card: Assessment -->
 <div data-section="assessment" class="card sidebar-block">
+    <!-- Element: Confidence -->
     <div class="score-display">
         <span class="score-label">Confidence</span>
         <span data-element="confidence-value" class="score-value color-average">Medium</span>
     </div>
+    <br>
     <!-- Element: Verdict -->
     <div class="score-display">
         <span class="score-label">Verdict</span>
         <span data-element="verdict-value" class="score-value color-success">Strong</span>
     </div>
+    <br>
     <!-- Element: Pre-Grade -->
     <div class="score-display">
         <span class="score-label">Pre-Grade</span>
@@ -620,9 +624,11 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
         <span class="score-label">Score</span>
         <span data-element="score-value" class="score-value color-average">74%</span>
     </div>
+    <!-- Element: Verification Points -->
    <h4 style="text-align: center; margin-top: 20px; color: var(--color-text-secondary);">Verification Points</h4>
     <ul data-element="verification-list"></ul>
 </div>
+
 <!-- End Card: Scoring -->
 </aside>
 <!-- ==== END COMPONENT: SIDEBAR ==== -->
@@ -643,10 +649,12 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 </ul>
 </div>
 <div class="grid-2-col summary-grid">
+    <!-- Element: Pro Skills -->
 <div data-block="pros" class="content-block">
 <h4><span class="text-accent-secondary">Ключевые плюсы:</span></h4>
 <ul><li>[Ключевое преимущество 1, подкрепленное фактом или цифрой из резюме.]</li><br><li>[Ключевое преимущество 2, демонстрирующее релевантный опыт.]</li></ul>
 </div>
+    <!-- Element: Risk Skills -->
 <div data-block="risks" class="content-block">
 <h4><span class="text-accent-secondary">Основные риски:</span></h4>
 <ul><li>[Основной риск 1, требующий верификации, с указанием на пробел в данных.]</li><br><li>[Основной риск 2, связанный с потенциальным несоответствием технологий или методологий.]</li></ul>
