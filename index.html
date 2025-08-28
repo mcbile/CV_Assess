@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <!-- =====================================================================================
@@ -12,6 +11,7 @@
 <!-- =====================================================================================
 * CHANGELOG v3 (by FUXI)
 * --------------------------------------------------------------------------------------
+* 
 ====================================================================================== -->
 
 <html lang="ru" data-theme="dark">
@@ -21,26 +21,57 @@
 <title>Hiring CoPilot - [YY.MM.DD Position. Candidate Name]</title>
 
 <!--
+#########################################################################################
+#########################################################################################
+##
+##    MAE-HRCV_v3 INTERNAL PROTOCOL & AI INSTRUCTIONS
+##
+#########################################################################################
+#########################################################################################
+
 ======================================================
-ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА
+СТРУКТУРА ПРОТОКОЛА MAE-HRCV_v3
+------------------------------------------------------
+1. Инициализация протокола
+2. Глобальные ограничения и workflow
+3. Роль: DATA-EXTRACT
+4. Роль: HRCV
+5. Блок кандидата (`candidate info`)
+6. Сводка и вердикт (`overview`)
+7. Карты компетенций (`competency cards`)
+8. Предварительный грейд (`assessment`)
+9. Скоринг и верификация (`scoring`)
+10. Финальная аналитика (`final assessment`)
+11. Риски и точки проверки (`doubts`)
+12. План интервью (`interview plan`)
+13. Варианты сценариев (`variations`)
+14. Тестовое задание (`test assignment`)
+15. Вспомогательные правила и fallback (`global utilities`)
+======================================================
+
+
+======================================================
+1. ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА
 ------------------------------------------------------
 Это файл-шаблон для инициализации ролей. После получения этого документа немедленно и полностью перейди к указанной ниже модели работы.
 Не пересказывай и не суммируй — действуй строго по протоколу.
 Твой первый ответ после загрузки этого файла должен быть подтверждением активации и запросом на запуск анализа.
 ======================================================
--->
 
-<!-- =================================================
-[GLOBAL CONSTRAINTS & WORKFLOW]
+
+======================================================
+2. ГЛОБАЛЬНЫЕ ОГРАНИЧЕНИЯ И WORKFLOW
 ------------------------------------------------------
 1) **Шаблон (`.html` файл) является ИСТИНОЙ по дизайну и структуре. HTML/CSS/JS неизменяемы, если оператор не дал прямого разрешения на их модификацию.**
 2) Оператор — всегда человек.
 3) Финальный результат — полностью заполненный HTML-файл (production-ready).
 4) Языковой контекст: Русский. Ключевые сущности (технологии) — на языке оригинала.
 5) WORKFLOW: ANALYSIS -> REPORT -> PLAN -> AWAITING WRITTEN APPROVAL -> IMPLEMENTATION -> QA -> FINAL RESULT.
+======================================================
+
 
 ======================================================
-[ROLE: MAE OMA-II / DATA-EXTRACT]
+3. РОЛЬ: DATA-EXTRACT
 ------------------------------------------------------
 Назначение: извлечь и нормализовать входные данные для последующего заполнения шаблона.
 Вход: Резюме кандидата (обязательно), Описание вакансии/JD (опционально).
@@ -49,25 +80,32 @@
 — Обнаружить пробелы/несоответствия: перекрытия дат, «дыры» в опыте, противоречия в должностях/описаниях.
 — Сформировать структурированный объект данных + список вопросов для верификации.
 Выход: Готовая структура данных → передать в режим HRCV.
--->
+======================================================
 
-<!-- ====================================================
-[ROLE: MAE OMA-II / HRCV]
+
+======================================================
+4. РОЛЬ: HRCV
 ------------------------------------------------------
 Назначение: провести аналитику по данным кандидата и **заполнить контент** существующего HTML-шаблона, не изменяя его структуру.
 JD необязателен: если дан — оценка под JD, если нет — под iGaming-бенчмарки.
+======================================================
+
 
 ======================================================
-[ПРАВИЛА ЗАПОЛНЕНИЯ: CANDIDATE INFO (`[data-section="candidate"]`)]
+5. ПРАВИЛА ЗАПОЛНЕНИЯ: БЛОК КАНДИДАТА (`candidate info`)
+   [data-section="candidate"]
 ------------------------------------------------------
 1. Установить атрибут `data-gender`: "male", "female" или "neutral" для элемента `[data-element="candidate-header"]`.
 2. Заполнить Имя кандидата в `[data-element="candidate-firstname"]`. Если не указано, использовать плейсхолдер "[N/A]".
 3. Заполнить Фамилию кандидата в `[data-element="candidate-lastname"]`. Если не указано, использовать плейсхолдер "[N/A]".
 4. Заполнить возраст кандидата в `[data-element="candidate-age"]`. Если не указан, использовать плейсхолдер "[N/A]".
 5. Заполнить страну/город проживания в `[data-element="candidate-location"]`.
+======================================================
+
 
 ======================================================
-[ПРАВИЛА ЗАПОЛНЕНИЯ: OVERVIEW (`[data-section="summary"]`)]
+6. ПРАВИЛА ЗАПОЛНЕНИЯ: СВОДКА И ВЕРДИКТ (`overview`)
+   [data-section="summary"]
 ------------------------------------------------------
 1. **Вердикт (`[data-element="verdict-value"]`):**
 * **Оценка и класс:** Рассчитать итоговый % и присвоить соответствующий класс элементу на основе порогов, заложенных в скрипте:
@@ -88,9 +126,11 @@ JD необязателен: если дан — оценка под JD, есл�
 
 2. **Ключевые плюсы (`[data-block="pros"]`):** Сформулировать минимум 2-3 наиболее сильных, релевантных преимущества кандидата с прямыми примерами или цифрами из резюме. Пример: "Глубокий опыт в разработке платежных шлюзов (5+ лет в FinTech), подтвержденный проектом X".
 3. **Основные риски (`[data-block="risks"]`):** Сформулировать минимум 2-3 главных риска или вопроса, требующих верификации на интервью. Пример: "Опыт с Kubernetes упомянут, но не детализирован; необходимо проверить глубину практических навыков".
+======================================================
+
 
 ======================================================
-[ПРАВИЛА ЗАПОЛНЕНИЯ: COMPETENCY CARDS]
+7. ПРАВИЛА ЗАПОЛНЕНИЯ: КАРТЫ КОМПЕТЕНЦИЙ (`competency cards`)
 ------------------------------------------------------
 Этот блок управляет оценкой и взвешиванием всех компетенций. Процесс состоит из 3 шагов: определение ценности (Принципы), расчет веса (Алгоритм) и выставление оценки (Интерпретация).
 
@@ -217,33 +257,47 @@ JD необязателен: если дан — оценка под JD, есл�
 * `color-success` = **значение 0.99 (99%)**: Навык подтвержден убедительно (конкретные проекты, измеримые результаты).
 * `color-average` = **значение 0.6 (60%)**: Навык упомянут, но без деталей; опыт релевантен, но абстрактен. Требует верификации.
 * `color-weak` = **значение 0.1 (10%)**: Навык отсутствует, устарел или упомянут формально без подтверждения.
+======================================================
+
 
 ======================================================
-[ПРАВИЛА ЗАПОЛНЕНИЯ: ASSESSMENT & SCORING (`[data-section="assessment"]`, `[data-section="scoring"]`)]
+8. ПРАВИЛА ЗАПОЛНЕНИЯ: ПРЕДВАРИТЕЛЬНЫЙ ГРЕЙД (`assessment`)
+   [data-section="assessment"]
 ------------------------------------------------------
-**1. PRE-GRADE (`[data-section="assessment"]`):**
 * **Матрица грейдов:**
 * **Junior/Junior+:** Требует инструкций для выполнения задач/ Предсказуем.
 * **Middle/Middle+:** Самостоятелен в стандартных задачах/ Предсказуем.
 * **Senior/Lead:** Владеет доменом, наставляет коллег, предлагает решения/ Отвечает за тактический результат команды.
 * **Head/C-Level:** Отвечает за стратегию и P&L/ Бизнес-результаты направления или компании.
 * **Обоснование:** Дать четкое обоснование присвоенного грейда, ссылаясь на опыт, автономность и сложность решаемых задач, описанных в резюме.
+======================================================
 
-**2. SCORING & VERIFICATION (`[data-section="scoring"]`):**
+
+======================================================
+9. ПРАВИЛА ЗАПОЛНЕНИЯ: СКОРИНГ И ВЕРИФИКАЦИЯ (`scoring`)
+   [data-section="scoring"]
+------------------------------------------------------
 * **Scoring:** Скрипт автоматически рассчитает текущую оценку (`[data-element="score-value"]`) на основе выставленных оценок компетенций.
 * **Verification Points:**
 * **Заполнение списка:** Внести в JSON-данные все пункты со статусом `color-average` и `color-weak`, которые являются **"Верифицируемыми Пунктами"**.
 * **Расчет потенциала:** Скрипт автоматически рассчитает и отобразит в списке `[data-element="verification-list"]` потенциальный прирост (%) для каждого пункта.
+======================================================
+
 
 ======================================================
-[ПРАВИЛА ЗАПОЛНЕНИЯ: ANALYTICAL CARDS]
+10. ПРАВИЛА ЗАПОЛНЕНИЯ: ФИНАЛЬНАЯ АНАЛИТИКА (`final assessment`)
+    [data-section="final-assessment"]
 ------------------------------------------------------
-1. **Final Assessment (`[data-section="final-assessment"]`):**
 * **Ценность:** Сформулировать краткую оценку: "[Имя Фамилия] представляет [сильную/умеренную/недостаточную] ценность для команды".
 * **Главный актив:** Определить одно, самое важное преимущество кандидата.
 * **Ключевое условие найма:** Сформулировать главный фактор, от которого зависит решение (например, "успешная верификация опыта с X").
+======================================================
 
-2. **Risk / Verification (`[data-section="doubts"]`):**
+
+======================================================
+11. ПРАВИЛА ЗАПОЛНЕНИЯ: РИСКИ И ТОЧКИ ПРОВЕРКИ (`doubts`)
+    [data-section="doubts"]
+------------------------------------------------------
 * **Классификация Рисков (КЛЮЧЕВОЕ ПРАВИЛО):**
 * **Верифицируемый Пункт (Динамический Риск):** Неясное утверждение, которое можно проверить. Успешная проверка повышает оценку. **Цель вопроса:** "Докажи это". **Пример:** "Опыт с Kafka описан абстрактно".
 * **Пункт для Исследования (Статический Факт):** Неизменяемый факт биографии (пробел в опыте, смена сферы). Обсуждение не меняет оценку, но раскрывает soft skills. **Цель вопроса:** "Объясни это". **Пример:** "Частая смена работы в 2022-2023 гг.".
@@ -251,31 +305,47 @@ JD необязателен: если дан — оценка под JD, есл�
 * **Риск:** "Пересечение дат работы в нескольких проектах".
 * **Вопрос:** "Как вы распределяли время и обязанности между проектами? Каковы были приоритеты и SLA?".
 * **Классифицировать** как динамический риск, если формат неясен.
+======================================================
 
-3. **Interview Plan (`[data-section="interview-plan"]`):**
+
+======================================================
+12. ПРАВИЛА ЗАПОЛНЕНИЯ: ПЛАН ИНТЕРВЬЮ (`interview plan`)
+    [data-section="interview-plan"]
+------------------------------------------------------
 * Сформировать детализированный, трехэтапный план с конкретными примерами вопросов:
 1. **Verification (X мин):** Сфокусироваться на снятии рисков. **Пример вопроса:** "Вы указали опыт с [ключевая технология из резюме]. Опишите кейс, где вы решали проблему с [релевантная бизнес-задача]".
 2. **Deep Dive (Y мин):** Глубоко проверить самую сильную компетенцию. **Пример вопроса:** "Ваша сильная сторона - [сильнейшая компетенция]. Как бы вы спроектировали [сложная система/процесс] для [релевантная бизнес-цель]?".
 3. **Behavioral (Z мин):** Задать вопросы на мотивацию и soft skills. **Пример вопроса:** "Я вижу, что вы перешли из [предыдущая сфера] в [текущая сфера]. Что послужило основной мотивацией и с какими трудностями вы столкнулись?".
+======================================================
 
-4. **Variations (`[data-section="variations"]`):**
-* Заполнить 3 сценария (Успех, Частичное подтверждение, Провал) с четкими рекомендациями по дальнейшим действиям.
 
 ======================================================
-[ПРАВИЛА ЗАПОЛНЕНИЯ: TEST ASSIGNMENT (`[data-section="test-assignment"]`)]
+13. ПРАВИЛА ЗАПОЛНЕНИЯ: ВАРИАНТЫ СЦЕНАРИЕВ (`variations`)
+    [data-section="variations"]
+------------------------------------------------------
+* Заполнить 3 сценария (Успех, Частичное подтверждение, Провал) с четкими рекомендациями по дальнейшим действиям.
+======================================================
+
+
+======================================================
+14. ПРАВИЛА ЗАПОЛНЕНИЯ: ТЕСТОВОЕ ЗАДАНИЕ (`test assignment`)
+    [data-section="test-assignment"]
 ------------------------------------------------------
 1. **Принципы создания ТЗ:** Релевантность (задача близка к реальной), Ограничение по времени (1-2 часа), Однозначность (четкие требования), Оцениваемость (измеримые метрики успеха).
 2. **Бриф Задания (`pre#test-assignment-md`):** Сформулировать контекст, требования и метрики.
 3. **Критерии Оценки (`pre#evaluation-form-md`):** Заполнить таблицу критериями, например: Качество кода, Соответствие требованиям, Подход к решению.
+======================================================
+
 
 ======================================================
-[GLOBAL UTILITIES & FALLBACKS]
+15. ВСПОМОГАТЕЛЬНЫЕ ПРАВИЛА И FALLBACK (`global utilities`)
 ------------------------------------------------------
 1. **Идентичность данных:** Все текстовые выводы, отражающие числовые оценки (например, вердикт), ДОЛЖНЫ быть сгенерированы на основе результатов расчетов скрипта.
 2. **Fallback-логика:**
 * Нет JD? Используй отраслевые бенчмарки iGaming.
 * Нет множителей роли? Генерируй их по роли из `[data-element="position-title"]` и содержимого резюме.
 3. **Final Check:** Перед выдачей результата убедиться, что все текстовые поля и атрибуты заполнены, классы `color-*` расставлены, суммы весов корректны, а структура HTML/CSS/JS не нарушена.
+======================================================
 -->
 
 <style>
@@ -364,7 +434,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 [data-element="position-title"] { display: inline-block; background-color: var(--color-bg); padding: 4px 10px; border-radius: 6px; font-weight: 500; color: var(--color-text-primary); font-size: 1.3em; }
 .score-display { display: flex; justify-content: space-between; align-items: center; }
 .score-display + .score-display { margin-top: 15px; }
-.score-label, [data-section="scoring"] h4 { font-size: 1.1em; font-weight: 500; }
+.score-label, [data-section="scoring"] h4 { font-size: 1.1em; font-weight: 500; line-height: 1.3; }
 .score-value { font-size: 1.1em; font-weight: bold; padding: 4px 10px; border-radius: 6px; color: var(--color-button-text); min-width: 120px; text-align: center; }
 .score-value.color-weak { background-color: var(--color-weak); }
 .score-value.color-average { background-color: var(--color-average); }
@@ -384,7 +454,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 [data-block="justification"] h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.1em; transition: color 0.3s; font-weight: 600; }
 .summary-grid { margin-top: 15px; }
 .score-badge { display: inline-block; padding: 2px 8px; font-size: 0.85em; font-weight: 600; border-radius: 6px; color: var(--color-button-text); text-align: center; vertical-align: middle; }
-/* MARKER: This is a shared style for .score-value and .score-badge which was missing */
 .score-value.color-weak, .score-badge.color-weak { background-color: var(--color-weak); }
 .score-value.color-average, .score-badge.color-average { background-color: var(--color-average); }
 .score-value.color-success, .score-badge.color-success { background-color: var(--color-success); }
@@ -406,7 +475,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 [data-block="risk-static"] { border-left-color: var(--color-text-secondary); }
 .text-color-average { color: var(--color-average); }
 .font-weight-600 { font-weight: 600; }
-.text-accent-secondary { color: var(--color-text-secondary); }
+.text-accent-secondary { color: var(--color-text-secondary); margin-bottom: 6px; }
 .border-left-success { border-left-color: var(--color-success) !important; }
 .border-left-danger { border-left-color: var(--color-danger) !important; }
 .task-block-wrapper { display: grid; grid-template-columns: 1fr; gap: 20px; }
@@ -449,7 +518,7 @@ footer .copyright { color: var(--color-primary); font-weight: bold; }
 --border-width: 1px;
 }
 #controls-section, footer, #scrollToTopBtn { display: none !important; }
-.card, .content-block { page-break-inside: avoid; } /* MODIFIED: Ensures logical blocks are not split */
+.card, .content-block { page-break-inside: avoid; } 
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 @page { size: A4; margin: 16mm; }
 * { animation: none !important; transition: none !important; box-shadow: none !important; }
@@ -549,7 +618,7 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
         <span class="score-label">Score</span>
         <span data-element="score-value" class="score-value color-average">74%</span>
     </div>
-    <h4>Verification Points</h4>
+   <h4 style="text-align: center; margin-top: 20px; color: var(--color-text-secondary);">Verification Points</h4>
     <ul data-element="verification-list"></ul>
 </div>
 <!-- End Card: Scoring -->
@@ -566,8 +635,8 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 <div data-block="justification" class="content-block">
 <h4 data-element="justification-title">Детализация Оценки</h4>
 <ul>
-    <li>[Детальное текстовое обоснование вердикта, основанное на: ключевых сильных и слабых сторонах, динамике карьерного роста или стагнации, проценте соответствия техстека (если есть JD), общей оценке оформления CV.]</li>
-    <li>[Детальное обоснование присвоенного грейда с отсылкой к формальной матрице, опыту кандидата и требованиям вакансии.]</li>
+    <li>[Детальное текстовое обоснование вердикта, основанное на: ключевых сильных и слабых сторонах, динамике карьерного роста или стагнации, проценте соответствия техстека (если есть JD), общей оценке оформления CV.]</li><br>
+    <li>[Детальное обоснование присвоенного грейда с отсылкой к формальной матрице, опыту кандидата и требованиям вакансии.]</li><br>
     <li>[Детальное обоснование Confidence Score со ссылкой на наличие/отсутствие KPI в резюме, его структурированность и полноту.]</li>
 </ul>
 </div>
@@ -750,7 +819,6 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 (() => {
 // ==== 1. SETUP & CONFIGURATION ====
 const D = document;
-// FIX: Corrected score for 'color-weak' from 0.09 to 0.1 as per protocol
 const SCORE_MAP = { "color-success": 1.0, "color-average": 0.6, "color-weak": 0.1 };
 
 // ==== 2. DOM ELEMENT CACHING ====
@@ -782,10 +850,10 @@ const downloadMarkdown = (content, fileName) => { const blob = new Blob([content
 
 const generateEmailBody = () => { const sidebarText = DOM.dashboardSidebar ? DOM.dashboardSidebar.innerText : 'N/A'; const justificationText = DOM.justificationSummaryBlock ? DOM.justificationSummaryBlock.innerText : 'N/A'; const assessmentText = DOM.finalAssessmentCard ? DOM.finalAssessmentCard.innerText : 'N/A'; const separator = "\n\n================================\n\n"; return `Здравствуйте,\n\nНиже представлена краткая сводка по кандидату:\n${separator}CАММАРИ (Боковая панель):\n${sidebarText}${separator}ОБЩЕЕ ОБОСНОВАНИЕ:\n${justificationText}${separator}ФИНАЛЬНАЯ ОЦЕНКА:\n${assessmentText}\n\nПолный отчет приложен к этому письму или доступен по ссылке.\n\nС уважением,\nHiring CoPilot.`;};
 
-function setupEventListeners() { if(DOM.themeSwitcher) DOM.themeSwitcher.addEventListener('click', () => applyTheme(DOM.htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')); if(DOM.savePdfBtn) DOM.savePdfBtn.addEventListener('click', () => window.print()); if(DOM.sectionSelectorBtn) DOM.sectionSelectorBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); }); if(DOM.emailBtn) DOM.emailBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.emailBtn, DOM.emailDropdown); }); D.addEventListener('click', (e) => { const isClickInside = (element, eventTarget) => element && element.contains(eventTarget); if (DOM.sectionSelectorDropdown?.classList.contains('is-open') && !isClickInside(DOM.sectionSelectorBtn.parentElement, e.target)) { toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); } if (DOM.emailDropdown?.classList.contains('is-open') && !isClickInside(DOM.emailBtn.parentElement, e.target)) { toggleDropdown(DOM.emailBtn, DOM.emailDropdown); }}); if(DOM.sendEmailBtn) DOM.sendEmailBtn.addEventListener('click', () => { const recipient = DOM.emailInput.value; if (!recipient) { alert('Введите email'); return; } const subject = encodeURIComponent(`Отчет по кандидату: ${DOM.candidateNameEl.textContent.trim()}`); const body = encodeURIComponent(generateEmailBody()); window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`; }); D.querySelectorAll('#download-task-md-btn, #download-evaluation-md-btn').forEach(btn => { btn.addEventListener('click', (e) => { const isTask = e.currentTarget.id === 'download-task-md-btn'; const contentEl = D.getElementById(isTask ? 'test-assignment-md' : 'evaluation-form-md'); const fileName = (isTask ? 'test-assignment' : 'evaluation-criteria') + '.md'; let content = contentEl.textContent; if(!isTask) { content = content.replace(/\|/g, ' | ').replace(/---\|/g, '---|'); } downloadMarkdown(content, fileName); }); }); if(DOM.saveCommentsBtn) DOM.saveCommentsBtn.addEventListener('click', () => { const content = DOM.notesTextarea.value; if(content) { downloadMarkdown(content, 'recruiter-comments.md'); }}); if(DOM.scrollToTopBtn) { window.addEventListener('scroll', () => { DOM.scrollToTopBtn.classList.toggle('is-visible', window.scrollY > 300); }); DOM.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); } /* FEATURE: Added localStorage persistence for notes */ if (DOM.notesTextarea) { DOM.notesTextarea.addEventListener('input', () => { localStorage.setItem('hrcvNotes', DOM.notesTextarea.value); }); } }
+function setupEventListeners() { if(DOM.themeSwitcher) DOM.themeSwitcher.addEventListener('click', () => applyTheme(DOM.htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')); if(DOM.savePdfBtn) DOM.savePdfBtn.addEventListener('click', () => window.print()); if(DOM.sectionSelectorBtn) DOM.sectionSelectorBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); }); if(DOM.emailBtn) DOM.emailBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.emailBtn, DOM.emailDropdown); }); D.addEventListener('click', (e) => { const isClickInside = (element, eventTarget) => element && element.contains(eventTarget); if (DOM.sectionSelectorDropdown?.classList.contains('is-open') && !isClickInside(DOM.sectionSelectorBtn.parentElement, e.target)) { toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); } if (DOM.emailDropdown?.classList.contains('is-open') && !isClickInside(DOM.emailBtn.parentElement, e.target)) { toggleDropdown(DOM.emailBtn, DOM.emailDropdown); }}); if(DOM.sendEmailBtn) DOM.sendEmailBtn.addEventListener('click', () => { const recipient = DOM.emailInput.value; if (!recipient) { alert('Введите email'); return; } const subject = encodeURIComponent(`Отчет по кандидату: ${DOM.candidateNameEl.textContent.trim()}`); const body = encodeURIComponent(generateEmailBody()); window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`; }); D.querySelectorAll('#download-task-md-btn, #download-evaluation-md-btn').forEach(btn => { btn.addEventListener('click', (e) => { const isTask = e.currentTarget.id === 'download-task-md-btn'; const contentEl = D.getElementById(isTask ? 'test-assignment-md' : 'evaluation-form-md'); const fileName = (isTask ? 'test-assignment' : 'evaluation-criteria') + '.md'; let content = contentEl.textContent; if(!isTask) { content = content.replace(/\|/g, ' | ').replace(/---\|/g, '---|'); } downloadMarkdown(content, fileName); }); }); if(DOM.saveCommentsBtn) DOM.saveCommentsBtn.addEventListener('click', () => { const content = DOM.notesTextarea.value; if(content) { downloadMarkdown(content, 'recruiter-comments.md'); }}); if(DOM.scrollToTopBtn) { window.addEventListener('scroll', () => { DOM.scrollToTopBtn.classList.toggle('is-visible', window.scrollY > 300); }); DOM.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); } /* FEATURE: LocalStorage persistence for notes */ if (DOM.notesTextarea) { DOM.notesTextarea.addEventListener('input', () => { localStorage.setItem('hrcvNotes', DOM.notesTextarea.value); }); } }
 
 // ==== 6. INITIALIZATION ====
-function init() { /* FEATURE: Added global error handling */ try { applyTheme(localStorage.getItem('hrcvTheme') || 'dark'); /* FEATURE: Restore notes from localStorage */ const savedNotes = localStorage.getItem('hrcvNotes'); if (DOM.notesTextarea && savedNotes) { DOM.notesTextarea.value = savedNotes; } const profile = getProfile(); populateSectionSelector(); setupEventListeners(); const isPlaceholder = (profile.grade === '[...]' || DOM.gradeValueDisplay.textContent.includes('[')); if (isPlaceholder) { renderCompetencyCards(profile); renderPlaceholders(profile); } else { renderCompetencyCards(profile); const scores = calculateScores(profile); renderScores(scores, profile); } } catch (error) { console.error("HRCV Initialization Failed:", error); document.body.innerHTML = `<div style="text-align: center; padding: 50px; font-family: sans-serif;"><h1>Ошибка при загрузке отчета</h1><p>Пожалуйста, проверьте консоль браузера (F12) для получения деталей.</p></div>`; } }
+function init() { /* FEATURE: Global error handling */ try { applyTheme(localStorage.getItem('hrcvTheme') || 'dark'); /* FEATURE: Restore notes from localStorage */ const savedNotes = localStorage.getItem('hrcvNotes'); if (DOM.notesTextarea && savedNotes) { DOM.notesTextarea.value = savedNotes; } const profile = getProfile(); populateSectionSelector(); setupEventListeners(); const isPlaceholder = (profile.grade === '[...]' || DOM.gradeValueDisplay.textContent.includes('[')); if (isPlaceholder) { renderCompetencyCards(profile); renderPlaceholders(profile); } else { renderCompetencyCards(profile); const scores = calculateScores(profile); renderScores(scores, profile); } } catch (error) { console.error("HRCV Initialization Failed:", error); document.body.innerHTML = `<div style="text-align: center; padding: 50px; font-family: sans-serif;"><h1>Ошибка при загрузке отчета</h1><p>Пожалуйста, проверьте консоль браузера (F12) для получения деталей.</p></div>`; } }
 init();
 })();
 </script>
