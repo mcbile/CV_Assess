@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <!-- =====================================================================================
@@ -6,6 +7,11 @@
 * PLATFORM: MAE OMA-II
 * AGENT: HRCV
 * DESCRIPTION: Production-ready template for candidate assessment reports.
+====================================================================================== -->
+
+<!-- =====================================================================================
+* CHANGELOG v3 (by FUXI)
+* --------------------------------------------------------------------------------------
 ====================================================================================== -->
 
 <html lang="ru" data-theme="dark">
@@ -39,7 +45,7 @@
 Назначение: извлечь и нормализовать входные данные для последующего заполнения шаблона.
 Вход: Резюме кандидата (обязательно), Описание вакансии/JD (опционально).
 Задачи:
-— Считать и структурировать: пол (для `data-gender`), ФИО, возраст и местоположение, целевую должность (`[data-element="position-title"]`), опыт (компании/роли/даты), hard/tech/soft навыки, образование и сертификаты.
+— Считать и структурировать: пол (для `data-gender`), Имя, Фамилию, возраст и местоположение, целевую должность (`[data-element="position-title"]`), опыт (компании/роли/даты), hard/tech/soft навыки, образование и сертификаты.
 — Обнаружить пробелы/несоответствия: перекрытия дат, «дыры» в опыте, противоречия в должностях/описаниях.
 — Сформировать структурированный объект данных + список вопросов для верификации.
 Выход: Готовая структура данных → передать в режим HRCV.
@@ -55,9 +61,10 @@ JD необязателен: если дан — оценка под JD, есл�
 [ПРАВИЛА ЗАПОЛНЕНИЯ: CANDIDATE INFO (`[data-section="candidate"]`)]
 ------------------------------------------------------
 1. Установить атрибут `data-gender`: "male", "female" или "neutral" для элемента `[data-element="candidate-header"]`.
-2. Заполнить ФИО кандидата в `[data-element="candidate-name"]`.
-3. Заполнить возраст кандидата в `[data-element="candidate-age"]`. Если не указан, использовать плейсхолдер "[N/A]".
-4. Заполнить страну/город проживания в `[data-element="candidate-location"]`.
+2. Заполнить Имя кандидата в `[data-element="candidate-firstname"]`. Если не указано, использовать плейсхолдер "[N/A]".
+3. Заполнить Фамилию кандидата в `[data-element="candidate-lastname"]`. Если не указано, использовать плейсхолдер "[N/A]".
+4. Заполнить возраст кандидата в `[data-element="candidate-age"]`. Если не указан, использовать плейсхолдер "[N/A]".
+5. Заполнить страну/город проживания в `[data-element="candidate-location"]`.
 
 ======================================================
 [ПРАВИЛА ЗАПОЛНЕНИЯ: OVERVIEW (`[data-section="summary"]`)]
@@ -72,11 +79,12 @@ JD необязателен: если дан — оценка под JD, есл�
 2. Динамики карьерного роста (четкий рост, стагнация, частые смены).
 3. Соответствия технического стека требованиям вакансии (если есть JD).
 4. Качества оформления CV (структура, грамотность, наличие измеримых KPI).
-5. **Уверенности в анализе (Confidence Score):** Это критически важная метрика.
-* **high:** Резюме содержит измеримые результаты (KPI, %, цифры). Анализ надежен.
-* **medium:** Резюме содержит качественные, но абстрактные описания. Анализ основан на косвенных данных и требует верификации.
-* **low:** Резюме крайне расплывчатое, противоречивое или неполное. Анализ является предположением.
-** ВАЖНО: Значение уверенности (High, Medium, Low) должно быть помещено в <span> с атрибутом data-element="confidence-badge". Этому же <span> необходимо присвоить соответствующий класс для окрашивания фона: color-success для High, color-average для Medium и color-weak для Low. При `low` ни одна компетенция не может быть оценена выше `color-average`.
+5. **Обоснования Уверенности в анализе (Confidence Score):** Это критически важный пункт. Объяснить, почему присвоен уровень High/Medium/Low, ссылаясь на наличие или отсутствие измеримых результатов в резюме (KPI, %, цифры).
+* **Уверенность в анализе (Confidence Score):**
+* **high:** Резюме содержит измеримые результаты. Анализ надежен.
+* **medium:** Резюме содержит качественные, но абстрактные описания. Анализ требует верификации.
+* **low:** Резюме крайне расплывчатое или неполное. Анализ является предположением.
+** ВАЖНО: Значение уверенности (High, Medium, Low) и соответствующий класс (`color-success`, `color-average`, `color-weak`) должны быть переданы в JS для отображения в сайдбаре (`[data-element="confidence-value"]`). При `low` ни одна компетенция не может быть оценена выше `color-average`.
 
 2. **Ключевые плюсы (`[data-block="pros"]`):** Сформулировать минимум 2-3 наиболее сильных, релевантных преимущества кандидата с прямыми примерами или цифрами из резюме. Пример: "Глубокий опыт в разработке платежных шлюзов (5+ лет в FinTech), подтвержденный проектом X".
 3. **Основные риски (`[data-block="risks"]`):** Сформулировать минимум 2-3 главных риска или вопроса, требующих верификации на интервью. Пример: "Опыт с Kubernetes упомянут, но не детализирован; необходимо проверить глубину практических навыков".
@@ -277,8 +285,8 @@ JD необязателен: если дан — оценка под JD, есл�
 :root {
 --color-bg: #EAEBEF;
 --color-surface: #E7E7E9;
---color-primary: #2563EB;
---color-primary-a: rgba(37, 99, 235, 0.15);
+--color-primary: #0284C7;
+--color-primary-a: rgba(2, 132, 199, 0.15);
 --color-button-text: #111827;
 --color-text-primary: #111827;
 --color-text-secondary: #6B7280;
@@ -357,7 +365,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 .score-display { display: flex; justify-content: space-between; align-items: center; }
 .score-display + .score-display { margin-top: 15px; }
 .score-label, [data-section="scoring"] h4 { font-size: 1.1em; font-weight: 500; }
-.score-value { font-size: 1.1em; font-weight: bold; padding: 4px 10px; border-radius: 6px; color: var(--color-bg); min-width: 120px; text-align: center; }
+.score-value { font-size: 1.1em; font-weight: bold; padding: 4px 10px; border-radius: 6px; color: var(--color-button-text); min-width: 120px; text-align: center; }
 .score-value.color-weak { background-color: var(--color-weak); }
 .score-value.color-average { background-color: var(--color-average); }
 .score-value.color-success { background-color: var(--color-success); }
@@ -376,6 +384,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 [data-block="justification"] h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.1em; transition: color 0.3s; font-weight: 600; }
 .summary-grid { margin-top: 15px; }
 .score-badge { display: inline-block; padding: 2px 8px; font-size: 0.85em; font-weight: 600; border-radius: 6px; color: var(--color-button-text); text-align: center; vertical-align: middle; }
+/* MARKER: This is a shared style for .score-value and .score-badge which was missing */
+.score-value.color-weak, .score-badge.color-weak { background-color: var(--color-weak); }
+.score-value.color-average, .score-badge.color-average { background-color: var(--color-average); }
+.score-value.color-success, .score-badge.color-success { background-color: var(--color-success); }
+.score-value.color-executive, .score-badge.color-executive { background-color: var(--color-executive); }
+
 [data-element="competency-item"] { padding: 10px 20px; }
 .competency-header { margin-bottom: 12px; }
 .progress-display { display: flex; align-items: center; gap: 15px; margin-bottom: 8px; }
@@ -430,7 +444,7 @@ footer .copyright { color: var(--color-primary); font-weight: bold; }
 --color-danger: #D62D20;
 --color-weak: #F44336;
 --color-average: #F59E0B;
---color-success: #16A34A; /* MODIFIED: Consistent color for print */
+--color-success: #16A34A; 
 --color-executive: #16A34A;
 --border-width: 1px;
 }
@@ -498,7 +512,10 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 <!-- Card: Candidate Info -->
 <div data-section="candidate" class="card sidebar-block">
     <div data-element="candidate-header" data-gender="neutral">
-        <h2 data-element="candidate-name">[Имя Фамилия]</h2>
+        <h2 data-element="candidate-name">
+            <span data-element="candidate-firstname">[Имя]</span>
+            <span data-element="candidate-lastname">[Фамилия]</span>
+        </h2>
         <div class="candidate-meta-group">
             <span data-element="candidate-age">[Возраст],</span>
             <span data-element="candidate-location">[Место жительства]</span>
@@ -510,9 +527,15 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 <!-- Card: Assessment -->
 <div data-section="assessment" class="card sidebar-block">
     <div class="score-display">
+        <span class="score-label">Confidence</span>
+        <span data-element="confidence-value" class="score-value color-average">Medium</span>
+    </div>
+    <!-- Element: Verdict -->
+    <div class="score-display">
         <span class="score-label">Verdict</span>
         <span data-element="verdict-value" class="score-value color-success">Strong</span>
     </div>
+    <!-- Element: Pre-Grade -->
     <div class="score-display">
         <span class="score-label">Pre-Grade</span>
         <span data-element="grade-value" class="score-value color-weak">Junior</span>
@@ -542,9 +565,11 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 <div class="card-content">
 <div data-block="justification" class="content-block">
 <h4 data-element="justification-title">Детализация Оценки</h4>
-<ul><li>[Детальное текстовое обоснование вердикта, основанное на: ключевых сильных и слабых сторонах, динамике карьерного роста или стагнации, проценте соответствия техстека (если есть JD), общей оценке оформления CV. Обоснование должно соответствовать численной оценке.]</li><br><li>[Детальное обоснование присвоенного грейда с отсылкой к формальной матрице, опыту кандидата и требованиям вакансии.]</li></ul>
-<br><hr><br>
-<p><strong><span class="text-accent-secondary">Confidence Score:</span> <span data-element="confidence-badge" class="score-badge color-average">[Medium]</span></strong></p>
+<ul>
+    <li>[Детальное текстовое обоснование вердикта, основанное на: ключевых сильных и слабых сторонах, динамике карьерного роста или стагнации, проценте соответствия техстека (если есть JD), общей оценке оформления CV.]</li>
+    <li>[Детальное обоснование присвоенного грейда с отсылкой к формальной матрице, опыту кандидата и требованиям вакансии.]</li>
+    <li>[Детальное обоснование Confidence Score со ссылкой на наличие/отсутствие KPI в резюме, его структурированность и полноту.]</li>
+</ul>
 </div>
 <div class="grid-2-col summary-grid">
 <div data-block="pros" class="content-block">
@@ -692,6 +717,7 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 {
 "[Название Позиции]": {
 "grade": "[...]",
+"confidence": "Medium",
 "weights": { "hard-skills": 40, "tech-stack": 30, "soft-skills": 20, "formal": 10 },
 "competencies": {
 "hard-skills": [
@@ -724,10 +750,11 @@ img, svg, video, canvas { max-width: 100% !important; height: auto !important; }
 (() => {
 // ==== 1. SETUP & CONFIGURATION ====
 const D = document;
-const SCORE_MAP = { "color-success": 1.0, "color-average": 0.6, "color-weak": 0.09 }; // REFACTORED: Centralized scoring weights
+// FIX: Corrected score for 'color-weak' from 0.09 to 0.1 as per protocol
+const SCORE_MAP = { "color-success": 1.0, "color-average": 0.6, "color-weak": 0.1 };
 
 // ==== 2. DOM ELEMENT CACHING ====
-const DOM = { htmlElement: D.documentElement, themeSwitcher: D.getElementById('theme-switcher'), currentScoreEl: D.querySelector('[data-element="score-value"]'), verificationListEl: D.querySelector('[data-element="verification-list"]'), verdictValueDisplay: D.querySelector('[data-element="verdict-value"]'), gradeValueDisplay: D.querySelector('[data-element="grade-value"]'), sectionSelectorBtn: D.getElementById('section-selector-btn'), sectionSelectorDropdown: D.getElementById('section-selector-dropdown'), emailBtn: D.getElementById('email-btn'), emailDropdown: D.getElementById('email-dropdown'), sendEmailBtn: D.getElementById('send-report-email'), emailInput: D.getElementById('recipient-email'), candidateNameEl: D.querySelector('[data-element="candidate-name"]'), scrollToTopBtn: D.getElementById('scrollToTopBtn'), positionTitleEl: D.querySelector('[data-element="position-title"]'), justificationTitle: D.querySelector('[data-element="justification-title"]'), assessmentValueBlock: D.querySelector('[data-block="assessment-value"]'), savePdfBtn: D.getElementById('save-pdf-btn'), saveCommentsBtn: D.getElementById('save-comments-md-btn'), notesTextarea: D.getElementById('notes-textarea'), dashboardSidebar: D.getElementById('dashboard-sidebar'), justificationSummaryBlock: D.querySelector('[data-block="justification"]'), finalAssessmentCard: D.querySelector('[data-section="final-assessment"]') };
+const DOM = { htmlElement: D.documentElement, themeSwitcher: D.getElementById('theme-switcher'), currentScoreEl: D.querySelector('[data-element="score-value"]'), verificationListEl: D.querySelector('[data-element="verification-list"]'), verdictValueDisplay: D.querySelector('[data-element="verdict-value"]'), gradeValueDisplay: D.querySelector('[data-element="grade-value"]'), confidenceValueDisplay: D.querySelector('[data-element="confidence-value"]'), sectionSelectorBtn: D.getElementById('section-selector-btn'), sectionSelectorDropdown: D.getElementById('section-selector-dropdown'), emailBtn: D.getElementById('email-btn'), emailDropdown: D.getElementById('email-dropdown'), sendEmailBtn: D.getElementById('send-report-email'), emailInput: D.getElementById('recipient-email'), candidateNameEl: D.querySelector('[data-element="candidate-name"]'), scrollToTopBtn: D.getElementById('scrollToTopBtn'), positionTitleEl: D.querySelector('[data-element="position-title"]'), justificationTitle: D.querySelector('[data-element="justification-title"]'), assessmentValueBlock: D.querySelector('[data-block="assessment-value"]'), savePdfBtn: D.getElementById('save-pdf-btn'), saveCommentsBtn: D.getElementById('save-comments-md-btn'), notesTextarea: D.getElementById('notes-textarea'), dashboardSidebar: D.getElementById('dashboard-sidebar'), justificationSummaryBlock: D.querySelector('[data-block="justification"]'), finalAssessmentCard: D.querySelector('[data-section="final-assessment"]') };
 
 // ==== 3. DATA INITIALIZATION ====
 const candidateData = JSON.parse(D.getElementById('candidate-data').textContent);
@@ -740,9 +767,9 @@ const renderCompetencyCards = (profile) => { if (!profile.weights || !profile.co
 
 const getScoreVerdict = (score) => { if (score < 60) return { verdict: 'Weak', class: 'color-weak', colorVar: 'var(--color-weak)' }; if (score < 80) return { verdict: 'Average', class: 'color-average', colorVar: 'var(--color-average)' }; return { verdict: 'Strong', class: 'color-success', colorVar: 'var(--color-success)' }; };
 
-const calculateScores = (profile) => { let pointsToVerify = []; let totalCurrentScore = 0; if (!profile.weights || !profile.competencies) return { currentPercentage: 0, pointsToVerify: [] }; pointsToVerify.push({name: "Верификация через Тестовое Задание", impact: 5.0, isFixed: true}); for (const [sectionId, sectionWeight] of Object.entries(profile.weights)) { const items = profile.competencies[sectionId]; if (!items) continue; let sectionScore = 0; items.forEach(item => { const currentScore = SCORE_MAP[item.scoreClass]; sectionScore += currentScore * (item.weight / 100); if (item.scoreClass !== 'color-success') { pointsToVerify.push({ name: item.name, scoreClass: item.scoreClass, sectionWeight, weight: item.weight }); } }); totalCurrentScore += sectionScore * (sectionWeight / 100); } let currentPercentage = totalCurrentScore * 100; pointsToVerify.forEach(p => { if(!p.isFixed) { const scoreChangeDecimal = SCORE_MAP['color-success'] - SCORE_MAP[p.scoreClass]; p.impact = scoreChangeDecimal * (p.weight / 100) * (p.sectionWeight / 100) * 100; }}); return { currentPercentage, pointsToVerify }; };
+const calculateScores = (profile) => { let pointsToVerify = []; let totalCurrentScore = 0; if (!profile.weights || !profile.competencies) return { currentPercentage: 0, pointsToVerify: [] }; pointsToVerify.push({name: "Верификация через ТЗ", impact: 5.0, isFixed: true}); for (const [sectionId, sectionWeight] of Object.entries(profile.weights)) { const items = profile.competencies[sectionId]; if (!items) continue; let sectionScore = 0; items.forEach(item => { const currentScore = SCORE_MAP[item.scoreClass]; sectionScore += currentScore * (item.weight / 100); if (item.scoreClass !== 'color-success') { pointsToVerify.push({ name: item.name, scoreClass: item.scoreClass, sectionWeight, weight: item.weight }); } }); totalCurrentScore += sectionScore * (sectionWeight / 100); } let currentPercentage = totalCurrentScore * 100; pointsToVerify.forEach(p => { if(!p.isFixed) { const scoreChangeDecimal = SCORE_MAP['color-success'] - SCORE_MAP[p.scoreClass]; p.impact = scoreChangeDecimal * (p.weight / 100) * (p.sectionWeight / 100) * 100; }}); return { currentPercentage, pointsToVerify }; };
 
-const renderScores = ({ currentPercentage, pointsToVerify }, profile) => { const verdictInfo = getScoreVerdict(currentPercentage); if (DOM.verdictValueDisplay) { DOM.verdictValueDisplay.textContent = verdictInfo.verdict; DOM.verdictValueDisplay.className = 'score-value ' + verdictInfo.class; } if (DOM.currentScoreEl) { DOM.currentScoreEl.textContent = `${currentPercentage.toFixed(1)}%`; DOM.currentScoreEl.className = 'score-value ' + verdictInfo.class; } if (DOM.justificationTitle) { DOM.justificationTitle.style.color = verdictInfo.colorVar; } if (DOM.assessmentValueBlock) { DOM.assessmentValueBlock.className = `content-block assessment-value ${verdictInfo.class}`; } if (DOM.verificationListEl) { DOM.verificationListEl.innerHTML = ''; let fragment = D.createDocumentFragment(); pointsToVerify.sort((a, b) => (b.isFixed ? 1 : 0) - (a.isFixed ? 1 : 0) || b.impact - a.impact).forEach(point => { const li = D.createElement('li'); li.innerHTML = `<span>${point.name}</span> <span class="risk-value">+${point.impact.toFixed(1)}%</span>`; fragment.appendChild(li); }); DOM.verificationListEl.appendChild(fragment); } if (DOM.gradeValueDisplay && profile.grade) { const gradeText = profile.grade.toLowerCase(); let gradeClass = 'color-average'; if (gradeText.includes('head') || gradeText.includes('c-level')) { gradeClass = 'color-executive'; } else if (gradeText.includes('senior') || gradeText.includes('lead')) { gradeClass = 'color-success'; } else if (gradeText.includes('junior')) { gradeClass = 'color-weak'; } DOM.gradeValueDisplay.textContent = profile.grade; DOM.gradeValueDisplay.className = 'score-value ' + gradeClass; } };
+const renderScores = ({ currentPercentage, pointsToVerify }, profile) => { const verdictInfo = getScoreVerdict(currentPercentage); if (DOM.verdictValueDisplay) { DOM.verdictValueDisplay.textContent = verdictInfo.verdict; DOM.verdictValueDisplay.className = 'score-value ' + verdictInfo.class; } if (DOM.currentScoreEl) { DOM.currentScoreEl.textContent = `${currentPercentage.toFixed(1)}%`; DOM.currentScoreEl.className = 'score-value ' + verdictInfo.class; } if (DOM.justificationTitle) { DOM.justificationTitle.style.color = verdictInfo.colorVar; } if (DOM.assessmentValueBlock) { DOM.assessmentValueBlock.className = `content-block assessment-value ${verdictInfo.class}`; } if (DOM.verificationListEl) { DOM.verificationListEl.innerHTML = ''; let fragment = D.createDocumentFragment(); pointsToVerify.sort((a, b) => (b.isFixed ? 1 : 0) - (a.isFixed ? 1 : 0) || b.impact - a.impact).forEach(point => { const li = D.createElement('li'); li.innerHTML = `<span>${point.name}</span> <span class="risk-value">+${point.impact.toFixed(1)}%</span>`; fragment.appendChild(li); }); DOM.verificationListEl.appendChild(fragment); } if (DOM.gradeValueDisplay && profile.grade) { const gradeText = profile.grade.toLowerCase(); let gradeClass = 'color-average'; if (gradeText.includes('head') || gradeText.includes('c-level')) { gradeClass = 'color-executive'; } else if (gradeText.includes('senior') || gradeText.includes('lead')) { gradeClass = 'color-success'; } else if (gradeText.includes('junior')) { gradeClass = 'color-weak'; } DOM.gradeValueDisplay.textContent = profile.grade; DOM.gradeValueDisplay.className = 'score-value ' + gradeClass; } if (DOM.confidenceValueDisplay && profile.confidence) { const confidenceText = profile.confidence.toLowerCase(); let confidenceClass = 'color-average'; if (confidenceText === 'high') confidenceClass = 'color-success'; if (confidenceText === 'low') confidenceClass = 'color-weak'; DOM.confidenceValueDisplay.textContent = profile.confidence; DOM.confidenceValueDisplay.className = 'score-value ' + confidenceClass; } };
 
 const renderPlaceholders = (profile) => { if (!profile) return; const isPlaceholderData = profile.grade === '[...]'; if (isPlaceholderData) { const hasCompetencies = profile.competencies && Object.keys(profile.competencies).length > 0; if (hasCompetencies) { let placeholderPoints = []; placeholderPoints.push({name: "Верификация через Тестовое Задание", fixed: true}); profile.competencies['hard-skills']?.filter(item => item.scoreClass !== 'color-success').forEach(item => placeholderPoints.push({ name: item.name })); profile.competencies['tech-stack']?.filter(item => item.scoreClass !== 'color-success').forEach(item => placeholderPoints.push({ name: item.name })); profile.competencies['soft-skills']?.filter(item => item.scoreClass !== 'color-success').forEach(item => placeholderPoints.push({ name: item.name })); if (DOM.verificationListEl) { DOM.verificationListEl.innerHTML = ''; placeholderPoints.forEach(point => { const li = D.createElement('li'); li.innerHTML = `<span>${point.name}</span> <span class="risk-value">${point.fixed ? '+5.0%' : '+ -.--%'}</span>`; DOM.verificationListEl.appendChild(li); }); } } return; }};
 
@@ -755,10 +782,10 @@ const downloadMarkdown = (content, fileName) => { const blob = new Blob([content
 
 const generateEmailBody = () => { const sidebarText = DOM.dashboardSidebar ? DOM.dashboardSidebar.innerText : 'N/A'; const justificationText = DOM.justificationSummaryBlock ? DOM.justificationSummaryBlock.innerText : 'N/A'; const assessmentText = DOM.finalAssessmentCard ? DOM.finalAssessmentCard.innerText : 'N/A'; const separator = "\n\n================================\n\n"; return `Здравствуйте,\n\nНиже представлена краткая сводка по кандидату:\n${separator}CАММАРИ (Боковая панель):\n${sidebarText}${separator}ОБЩЕЕ ОБОСНОВАНИЕ:\n${justificationText}${separator}ФИНАЛЬНАЯ ОЦЕНКА:\n${assessmentText}\n\nПолный отчет приложен к этому письму или доступен по ссылке.\n\nС уважением,\nHiring CoPilot.`;};
 
-function setupEventListeners() { if(DOM.themeSwitcher) DOM.themeSwitcher.addEventListener('click', () => applyTheme(DOM.htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')); if(DOM.savePdfBtn) DOM.savePdfBtn.addEventListener('click', () => window.print()); if(DOM.sectionSelectorBtn) DOM.sectionSelectorBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); }); if(DOM.emailBtn) DOM.emailBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.emailBtn, DOM.emailDropdown); }); D.addEventListener('click', (e) => { const isClickInside = (element, eventTarget) => element && element.contains(eventTarget); if (DOM.sectionSelectorDropdown?.classList.contains('is-open') && !isClickInside(DOM.sectionSelectorBtn.parentElement, e.target)) { toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); } if (DOM.emailDropdown?.classList.contains('is-open') && !isClickInside(DOM.emailBtn.parentElement, e.target)) { toggleDropdown(DOM.emailBtn, DOM.emailDropdown); }}); if(DOM.sendEmailBtn) DOM.sendEmailBtn.addEventListener('click', () => { const recipient = DOM.emailInput.value; if (!recipient) { alert('Введите email'); return; } const subject = encodeURIComponent(`Отчет по кандидату: ${DOM.candidateNameEl.textContent.trim()}`); const body = encodeURIComponent(generateEmailBody()); window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`; }); D.querySelectorAll('#download-task-md-btn, #download-evaluation-md-btn').forEach(btn => { btn.addEventListener('click', (e) => { const isTask = e.currentTarget.id === 'download-task-md-btn'; const contentEl = D.getElementById(isTask ? 'test-assignment-md' : 'evaluation-form-md'); const fileName = (isTask ? 'test-assignment' : 'evaluation-criteria') + '.md'; let content = contentEl.textContent; if(!isTask) { content = content.replace(/\|/g, ' | ').replace(/---\|/g, '---|'); } downloadMarkdown(content, fileName); }); }); if(DOM.saveCommentsBtn) DOM.saveCommentsBtn.addEventListener('click', () => { const content = DOM.notesTextarea.value; if(content) { downloadMarkdown(content, 'recruiter-comments.md'); }}); if(DOM.scrollToTopBtn) { window.addEventListener('scroll', () => { DOM.scrollToTopBtn.classList.toggle('is-visible', window.scrollY > 300); }); DOM.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); } }
+function setupEventListeners() { if(DOM.themeSwitcher) DOM.themeSwitcher.addEventListener('click', () => applyTheme(DOM.htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')); if(DOM.savePdfBtn) DOM.savePdfBtn.addEventListener('click', () => window.print()); if(DOM.sectionSelectorBtn) DOM.sectionSelectorBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); }); if(DOM.emailBtn) DOM.emailBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(DOM.emailBtn, DOM.emailDropdown); }); D.addEventListener('click', (e) => { const isClickInside = (element, eventTarget) => element && element.contains(eventTarget); if (DOM.sectionSelectorDropdown?.classList.contains('is-open') && !isClickInside(DOM.sectionSelectorBtn.parentElement, e.target)) { toggleDropdown(DOM.sectionSelectorBtn, DOM.sectionSelectorDropdown); } if (DOM.emailDropdown?.classList.contains('is-open') && !isClickInside(DOM.emailBtn.parentElement, e.target)) { toggleDropdown(DOM.emailBtn, DOM.emailDropdown); }}); if(DOM.sendEmailBtn) DOM.sendEmailBtn.addEventListener('click', () => { const recipient = DOM.emailInput.value; if (!recipient) { alert('Введите email'); return; } const subject = encodeURIComponent(`Отчет по кандидату: ${DOM.candidateNameEl.textContent.trim()}`); const body = encodeURIComponent(generateEmailBody()); window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`; }); D.querySelectorAll('#download-task-md-btn, #download-evaluation-md-btn').forEach(btn => { btn.addEventListener('click', (e) => { const isTask = e.currentTarget.id === 'download-task-md-btn'; const contentEl = D.getElementById(isTask ? 'test-assignment-md' : 'evaluation-form-md'); const fileName = (isTask ? 'test-assignment' : 'evaluation-criteria') + '.md'; let content = contentEl.textContent; if(!isTask) { content = content.replace(/\|/g, ' | ').replace(/---\|/g, '---|'); } downloadMarkdown(content, fileName); }); }); if(DOM.saveCommentsBtn) DOM.saveCommentsBtn.addEventListener('click', () => { const content = DOM.notesTextarea.value; if(content) { downloadMarkdown(content, 'recruiter-comments.md'); }}); if(DOM.scrollToTopBtn) { window.addEventListener('scroll', () => { DOM.scrollToTopBtn.classList.toggle('is-visible', window.scrollY > 300); }); DOM.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); } /* FEATURE: Added localStorage persistence for notes */ if (DOM.notesTextarea) { DOM.notesTextarea.addEventListener('input', () => { localStorage.setItem('hrcvNotes', DOM.notesTextarea.value); }); } }
 
 // ==== 6. INITIALIZATION ====
-function init() { applyTheme(localStorage.getItem('hrcvTheme') || 'dark'); const profile = getProfile(); populateSectionSelector(); setupEventListeners(); const isPlaceholder = (profile.grade === '[...]' || DOM.gradeValueDisplay.textContent.includes('[')); if (isPlaceholder) { renderCompetencyCards(profile); renderPlaceholders(profile); } else { renderCompetencyCards(profile); const scores = calculateScores(profile); renderScores(scores, profile); } }
+function init() { /* FEATURE: Added global error handling */ try { applyTheme(localStorage.getItem('hrcvTheme') || 'dark'); /* FEATURE: Restore notes from localStorage */ const savedNotes = localStorage.getItem('hrcvNotes'); if (DOM.notesTextarea && savedNotes) { DOM.notesTextarea.value = savedNotes; } const profile = getProfile(); populateSectionSelector(); setupEventListeners(); const isPlaceholder = (profile.grade === '[...]' || DOM.gradeValueDisplay.textContent.includes('[')); if (isPlaceholder) { renderCompetencyCards(profile); renderPlaceholders(profile); } else { renderCompetencyCards(profile); const scores = calculateScores(profile); renderScores(scores, profile); } } catch (error) { console.error("HRCV Initialization Failed:", error); document.body.innerHTML = `<div style="text-align: center; padding: 50px; font-family: sans-serif;"><h1>Ошибка при загрузке отчета</h1><p>Пожалуйста, проверьте консоль браузера (F12) для получения деталей.</p></div>`; } }
 init();
 })();
 </script>
